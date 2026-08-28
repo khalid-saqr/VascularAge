@@ -10,7 +10,7 @@ The trial uses the Pulse Wave DataBase (PWDB) through VascuQuest and is designed
 ## Phase status
 
 - **Phase 0 — Canonical Trial Specification:** merged and frozen.
-- **Phase 1 — Computational Engine and Source Qualification:** external Google Colab qualification **PASS**; PR #2 is ready for manual review after final GitHub CI.
+- **Phase 1 — Computational Engine and Source Qualification:** external Google Colab qualification **PASS**; awaiting manual PR review/merge.
 - **Phase 2 — Systematic Evidence Map:** not started.
 - **Phase 3 — Prospective Protocol Lock:** not started.
 - **Phase 4 — Full in-silico trial:** prohibited until Phases 2 and 3 are completed and merged.
