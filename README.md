@@ -1,46 +1,29 @@
 # VascularAge
 
-**The Locked In-Silico Trial Concept**
+**Is Arterial Age Identifiable From the Pulse?**  
+*An Exhaustive In-Silico Trial of Physiological Aliasing and Measurement Rescue in 4,374 Virtual Subjects*
 
-*Is Arterial Age Identifiable From the Pulse? An Exhaustive In-Silico Trial of Physiological Aliasing and Measurement Rescue in 4,374 Virtual Subjects.*
+This repository implements **The Locked In-Silico Trial Concept**: a prospectively specified computational experiment asking whether distinct age-conditioned cardiovascular states can generate experimentally indistinguishable arterial pulse phenotypes, which physiological perturbations create those aliases, and which complementary measurements restore identifiability.
 
-## Scientific question
+The trial uses the Pulse Wave DataBase (PWDB) through VascuQuest and is designed for reproducible execution with JAX/XLA and Google Colab persistent storage.
 
-Can physiologically different age-conditioned cardiovascular states generate arterial pulse phenotypes that are experimentally indistinguishable, which physiological compensations create those aliases, and which complementary measurements resolve them?
+## Phase status
 
-The study uses the canonical Pulse Wave DataBase (PWDB) through VascuQuest. A VascuQuest virtual subject is a **simulation instance, not a patient or human participant**.
+- **Phase 0 — Canonical Trial Specification:** merged and frozen.
+- **Phase 1 — Computational Engine and Source Qualification:** external Google Colab qualification **PASS**; awaiting manual PR review/merge.
+- **Phase 2 — Systematic Evidence Map:** not started.
+- **Phase 3 — Prospective Protocol Lock:** not started.
+- **Phase 4 — Full in-silico trial:** prohibited until Phases 2 and 3 are completed and merged.
 
-## Phase-governed execution
+Phase 1 qualified the canonical PWDB/VascuQuest source boundary and the synthetic JAX engine without calculating any real cross-age biological endpoint. The executed notebook and qualification provenance are preserved on the Phase-1 branch.
 
-The repository is developed through manually reviewed phase pull requests:
+## Scientific boundary
 
-0. Canonical trial specification
-1. Computational engine qualification
-2. Systematic evidence map
-3. Prospective protocol/code lock
-4. Full one-shot in-silico trial
-5. Falsification and robustness
-6. Scientific adjudication
-7. Publication package
+The primary trial population is the complete PWDB factorial design:
 
-No phase is automatically merged. Biological cross-age aliasing outcomes are not permitted to be inspected before the Phase-3 lock.
+- 4,374 virtual haemodynamic simulation instances;
+- six model ages;
+- 729 configurations per age;
+- six controlled coordinates: HR, SV, LVET, DIA, PWV, and MAP (source column `MBP`).
 
-## Current phase
-
-**Phase 0 — Canonical trial specification**
-
-The governing Phase-0 files are under [`protocol/`](protocol/):
-
-- [`TRIAL_PROTOCOL_v1.0.md`](protocol/TRIAL_PROTOCOL_v1.0.md)
-- [`estimands.yaml`](protocol/estimands.yaml)
-- [`observation_arms.yaml`](protocol/observation_arms.yaml)
-- [`uncertainty_model.yaml`](protocol/uncertainty_model.yaml)
-- [`falsification_rules.yaml`](protocol/falsification_rules.yaml)
-- [`PHASE_0_VALIDATION.md`](protocol/PHASE_0_VALIDATION.md)
-
-## Data boundary
-
-PWDB remains the external source of truth and is not re-hosted in this repository. Large source artifacts and future runtime checkpoints belong in persistent external storage and are referenced by checksums/provenance.
-
-Canonical PWDB DOI: `10.5281/zenodo.3275625`  
-VascuQuest: `https://github.com/KNOWDYN/VascuQuest`
+The primary biological analysis remains locked for Phase 4. No cross-age aliasing result, age-identifiability surface, compensation vector, or biological measurement-rescue result has yet been calculated.
