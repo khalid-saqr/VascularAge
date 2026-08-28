@@ -1,0 +1,75 @@
+schema_version: '1.0'
+phase: 0
+primary_arm: P0
+arms:
+- id: P0
+  label: Radial pressure
+  role: primary
+  site:
+  - Radial
+  quantities:
+  - pressure
+  combination_rule: single modality reference separation
+- id: P1
+  label: Digital PPG
+  role: replication
+  site:
+  - Digital
+  quantities:
+  - ppg
+  combination_rule: Layer-B morphology operator to be validated in Phase 1 and frozen in Phase 3
+- id: P2
+  label: Carotid pressure
+  role: replication
+  site:
+  - Carotid
+  quantities:
+  - pressure
+  combination_rule: pressure separation using same primary semantics where units permit
+- id: M1
+  label: Radial pressure plus carotid area
+  role: measurement_rescue
+  site:
+  - Radial
+  - Carotid
+  quantities:
+  - pressure
+  - area
+  combination_rule: logical intersection of modality-specific indistinguishability criteria
+- id: M2
+  label: Carotid pressure, reconstructed flow and area
+  role: measurement_rescue
+  site:
+  - Carotid
+  quantities:
+  - pressure
+  - flow_rate_reconstructed
+  - area
+  combination_rule: logical intersection of modality-specific indistinguishability criteria
+- id: M3
+  label: Restricted multisite mechanical observation
+  role: measurement_rescue
+  site: to_be_fixed_phase3_from_predeclared_anatomical_rule_without_trial_outcomes
+  quantities:
+  - pressure
+  - flow_rate_reconstructed
+  - area
+  combination_rule: logical intersection of modality-specific indistinguishability criteria
+- id: M4
+  label: Complete common-site mechanical observation
+  role: theoretical_upper_bound
+  site: all common sites with source-supported required quantities
+  quantities:
+  - pressure
+  - flow_rate_reconstructed
+  - area
+  combination_rule: logical intersection of modality-specific indistinguishability criteria
+rules:
+  no_ad_hoc_cross_unit_weighting: true
+  no_arm_selection_using_phase4_results: true
+  missing_required_source_quantity: fail arm explicitly; do not substitute site or quantity
+  evidence_status:
+    pressure: SOURCE
+    area: SOURCE
+    ppg: SOURCE
+    flow_rate_reconstructed: RECONSTRUCTED
