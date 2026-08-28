@@ -17,3 +17,18 @@ The rebuilt Phase 1 uses VascuQuest as the semantic authority for PWDB waveform 
 2. an exhaustive, streaming audit of all 4,374 Radial-pressure rows using the **same blank/NaN missing and trailing-padding semantics implemented by VascuQuest**.
 
 The rebuild does not modify any Phase-0 scientific hypothesis, primary endpoint, tolerance, observation arm, or falsification rule.
+
+## Successful external qualification
+
+The rebuilt notebook was subsequently executed in Google Colab with a T4 GPU and saved back to the branch. The executed notebook records:
+
+- `PHASE 1 QUALIFICATION: PASS`;
+- `PHASE 1 EXTERNAL QUALIFICATION CLEARED`;
+- source qualification `PASS`;
+- engine qualification `PASS`;
+- `biological_endpoint_executed: false`;
+- qualified VascularAge implementation commit `685ef575136ff0628ec2b598e914edce9cdd43e2`;
+- pinned VascuQuest commit `79891036e61df3096536da8f647f2297b0d88252`;
+- observed qualification-contract SHA-256 `18cc85b8e192b14acdfff7f08bd684704799e793b34bb558cfede0efbc5f0399`.
+
+The executed-notebook evidence commit is intentionally preserved after the implementation commit because it proves which exact code revision was run externally. Squashing that evidence into a new code commit would weaken the direct correspondence between the notebook's recorded `vascularage_repo_commit` and the implementation that was actually executed.
