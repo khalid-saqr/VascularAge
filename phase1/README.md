@@ -35,3 +35,7 @@ Phase 1 established:
 - no real-PWDB cross-age aliasing, separability, compensation, or measurement-rescue endpoint calculated.
 
 Phase 1 does **not** authorize Phase 4 biological execution. Phase 2 and Phase 3 must still be completed and merged first.
+
+## Merge guidance
+
+PR #2 is scientifically cleared once its GitHub CI is green. Preserve the executed-notebook evidence and implementation commit relationship in repository history; do not rewrite the executed notebook after clearance.
