@@ -1,0 +1,36 @@
+schema_version: '1.0'
+phase: 0
+principle: physiological factorial states are deterministic; uncertainty is assigned to measurement/representation processes only
+primary_tolerance_surface:
+  pressure_rmse_mmHg:
+  - 1
+  - 2
+  - 3
+  - 5
+  - 8
+  - 10
+  cycle_duration_ms:
+  - 2
+  - 5
+  - 10
+  - 20
+  reference:
+    pressure_rmse_mmHg: 5
+    cycle_duration_ms: 10
+  alias_region: sqrt((dP/eP)^2 + (dT/eT)^2) <= 1
+phase5_required_robustness_families:
+- additive waveform noise
+- multiplicative gain/calibration error
+- pressure offset error
+- temporal jitter
+- reduced sampling frequency
+- alternative legitimate waveform distance
+constraints:
+  no_empirical_human_probability_distribution_over_factorial_states: true
+  no_device_specific_accuracy_claim_from_reference_tolerances: true
+  random_seeds_must_be_recorded: true
+  noise_realizations_must_not_change_locked_primary_analysis: true
+reference_rationale:
+  pressure_scale_mmHg: 5
+  note: operational mid-grid reference only; order of magnitude anchored to AAMI/ESH/ISO conventional BP-device validation literature, not a radial-tonometry accuracy claim
+  citation_doi: 10.1161/HYPERTENSIONAHA.117.10237

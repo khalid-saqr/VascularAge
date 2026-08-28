@@ -1,0 +1,71 @@
+schema_version: '1.0'
+phase: 0
+project: The Locked In-Silico Trial Concept
+population:
+  expected_n: 4374
+  ages_years:
+  - 25
+  - 35
+  - 45
+  - 55
+  - 65
+  - 75
+  expected_per_age: 729
+  factor_levels_standardized:
+  - -1
+  - 0
+  - 1
+  factor_names_expected:
+  - HR
+  - SV
+  - LVET
+  - DIA
+  - PWV
+  - MAP
+  population_semantics: exhaustive virtual factorial design; not an epidemiological sample
+  mandatory_phase1_verification: true
+primary_observation:
+  site: Radial
+  quantity: pressure
+  phase_points: 512
+  interpolation: linear
+  preserve_absolute_amplitude: true
+  report_pressure_unit: mmHg
+  preserve_cycle_duration: true
+  cycle_duration_unit: ms
+  forbidden_primary_normalizations:
+  - subject_mean_subtraction
+  - subject_zscore
+  - peak_scaling
+  - pulse_pressure_scaling
+  - subject_specific_morphology_normalization
+pairwise_components:
+  pressure_rmse: sqrt(mean((P_i_phase - P_j_phase)^2))
+  cycle_duration_abs_diff: abs(T_i - T_j)
+reference_separation:
+  formula: sqrt((pressure_rmse_mmHg/5.0)^2 + (cycle_duration_diff_ms/10.0)^2)
+  alias_if: d_ref <= 1.0
+  pressure_scale_mmHg: 5.0
+  cycle_duration_scale_ms: 10.0
+  semantics: operational reference point; full tolerance surface is required
+primary_estimands:
+  nearest_cross_age_separation: D_i_ref = min_{j: age_j != age_i} d_ref(i,j)
+  nearest_cross_age_alias: argmin_{j: age_j != age_i} d_ref(i,j)
+  reference_alias_fraction: mean(D_i_ref <= 1.0) over equally weighted factorial states
+  identifiability_surface: R(eP,eT) = mean(min_cross_age d(i,j;eP,eT) > 1)
+  age_pair_matrix: all 15 unordered age pairs
+secondary_estimands:
+  extreme_age_contrast: 25 vs 75 years
+  matched_age_displacement: d_ref(Y(age_a,xi),Y(age_b,xi))
+  best_target_age_separation: min_eta d_ref(Y(age_a,xi),Y(age_b,eta))
+  compensation_gain: 1 - D_best/(D_matched + delta), delta < 1e-12
+  compensation_vector: xi_target_star - xi_source
+inference_constraints:
+  no_human_prevalence_interpretation: true
+  no_iid_human_subject_p_values: true
+  allowed:
+  - exact factorial contrasts
+  - exhaustive design counts
+  - explicit permutation nulls
+  - measurement-error Monte Carlo
+  - estimator-stability resampling

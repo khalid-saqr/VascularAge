@@ -1,0 +1,53 @@
+schema_version: '1.0'
+phase: 0
+decision_scope: major concept; final adjudication occurs in Phase 6 after Phase 5 robustness
+hard_methodological_failures:
+- id: F0
+  condition: Phase-1 canonical data audit fails and cannot be resolved without changing the intended population/design
+  effect: STOP
+- id: F1
+  condition: Primary waveform representation cannot be reproduced deterministically from source data
+  effect: STOP
+- id: F2
+  condition: Known-answer engine tests fail or CPU/JAX implementations disagree beyond locked tolerance
+  effect: STOP
+- id: F3
+  condition: Primary outcomes were inspected before Phase-3 lock
+  effect: CONFIRMATORY_STATUS_INVALID
+scientific_no_go_triggers:
+- id: S1
+  condition: Cross-age aliasing is negligible throughout the prespecified primary tolerance surface
+  effect: NO_GO_MAJOR_ALIASING_CLAIM
+- id: S2
+  condition: Alias structure reverses or disappears under reasonable prespecified alternative waveform distances/scalings
+  effect: NO_GO_ROBUST_ALIASING_CLAIM
+- id: S3
+  condition: Observed aliasing is explained almost entirely by cycle-duration/heart-rate mismatch and disappears when duration is appropriately represented
+  effect: NO_GO_PHYSIOLOGICAL_ALIASING_CLAIM
+- id: S4
+  condition: Nearest-alias compensation vectors show no reproducible physiological structure beyond explicit null permutations
+  effect: NO_GO_MECHANISTIC_COMPENSATION_CLAIM
+- id: S5
+  condition: A conventional single haemodynamic metric reproduces the full-waveform alias structure without material loss
+  effect: DOWNGRADE_NOVELTY
+- id: S6
+  condition: No prespecified complementary measurement arm materially reduces aliasing under matched tolerance semantics
+  effect: NO_GO_MEASUREMENT_RESCUE_CLAIM
+- id: S7
+  condition: Primary conclusion requires subject-specific amplitude or morphology normalization forbidden by protocol
+  effect: NO_GO_PRIMARY_CLAIM
+reposition_paths:
+- case: aliasing limited to PPG/peripheral observation but absent centrally
+  position: measurement-specific vascular-age ambiguity
+- case: aliasing exists but rescue weak
+  position: physiological non-uniqueness without measurement-rescue claim
+- case: age largely identifiable but individual physiological directions are not
+  position: age-conditioned physiological observability study
+- case: full waveform outperforms conventional metrics with little aliasing
+  position: information loss of conventional vascular-age indices
+prohibited_post_hoc_actions:
+- change primary site because another site looks better
+- change reference tolerance because it improves the headline
+- change waveform normalization after viewing age separation
+- drop physiologically inconvenient configurations without a predeclared sensitivity rationale
+- replace a failed primary endpoint with an exploratory endpoint without relabeling
