@@ -1,0 +1,87 @@
+{
+  "base_main_sha": "19c9d9981415cfb266ebcff1d1b277cae83b268f",
+  "biological_endpoints_allowed": false,
+  "contract_version": "2.0",
+  "drive_root": "/content/drive/MyDrive/VascularAge/phase_01",
+  "outputs": [
+    "source_qualification.json",
+    "engine_qualification.json",
+    "environment.json",
+    "qualification_summary.json",
+    "PHASE_1_RUN_REPORT.md",
+    "bundle_hashes.json"
+  ],
+  "phase": 1,
+  "phase_name": "Computational engine and source qualification",
+  "qualification_layers": {
+    "A_source": [
+      "vascuquest_tier4_pass",
+      "model_variations_checksum_verified",
+      "model_variations_exact_schema",
+      "subjects_exact_1_to_4374",
+      "six_age_groups_729_each",
+      "complete_3pow6_each_age",
+      "age_alignment_with_model_configs"
+    ],
+    "B_waveform_semantics": [
+      "radial_archive_all_4374",
+      "radial_missing_padding_semantics_valid",
+      "radial_no_internal_missing",
+      "radial_active_samples_at_least_2",
+      "radial_vascuquest_crosscheck_pass"
+    ],
+    "C_engine": [
+      "repository_tests_pass",
+      "phase_resample_known_answer",
+      "reference_distance_known_answer",
+      "known_alias",
+      "known_separation",
+      "known_rescue",
+      "known_fisher_null",
+      "checkpoint_roundtrip",
+      "jax_numpy_equivalence"
+    ],
+    "D_provenance": [
+      "contract_hash_recorded",
+      "vascuquest_commit_bound",
+      "environment_recorded",
+      "biological_endpoint_executed_false"
+    ]
+  },
+  "source": {
+    "ages": [25, 35, 45, 55, 65, 75],
+    "factor_levels": [-1, 0, 1],
+    "factor_source_columns": {
+      "DIA": "DIA",
+      "HR": "HR",
+      "LVET": "LVET",
+      "MAP": "MBP",
+      "PWV": "PWV",
+      "SV": "SV"
+    },
+    "missing_tokens": ["", "nan"],
+    "model_variations_exact_header": [
+      "SUBJECT NUMBER",
+      "AGE",
+      "DIA",
+      "HR",
+      "LVET",
+      "MBP",
+      "PWV",
+      "SV"
+    ],
+    "primary_waveform_member": "PWs_Radial_P.csv",
+    "protocol_factor_order": ["HR", "SV", "LVET", "DIA", "PWV", "MAP"],
+    "radial_internal_missing_allowed": false,
+    "sample_rate_hz": 500.0,
+    "subjects": 4374,
+    "subjects_per_age": 729
+  },
+  "vascuquest": {
+    "commit_sha": "79891036e61df3096536da8f647f2297b0d88252",
+    "doi": "10.5281/zenodo.3275625",
+    "record_id": "3275625",
+    "repository": "KNOWDYN/VascuQuest",
+    "version": "0.1.0"
+  }
+}
