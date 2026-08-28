@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "coding_scope": "Title + Abstract from frozen 889-record corpus",
+  "axes": {
+    "ageing_context": {"regex": "\\b(?:aging|ageing|age[- ]related|age[- ]dependent|age dependence|older adults?|elderly|adult life ?span|chronological age|vascular age|early vascular aging|early vascular ageing|healthy vascular aging|healthy vascular ageing)\\b"},
+    "arterial_pulse_wave": {"regex": "\\b(?:pulse[- ]wave|pulse wave|pulse waveform|pressure waveform|radial pulse|photoplethysm\\w*|ppg|pulse transit\\w*|augmentation index|reflected wave|wave reflection|arterial waveform|pressure pulse)\\b"},
+    "vascular_age_assessment": {"regex": "\\b(?:vascular age|vascular aging|vascular ageing|early vascular aging|early vascular ageing|healthy vascular aging|healthy vascular ageing|predicted age|age estimation|age prediction)\\b"},
+    "stiffness_pwv": {"regex": "\\b(?:arterial stiffness|vascular stiffness|aortic stiffness|pulse wave velocity|pwv)\\b"},
+    "reflection_transit": {"regex": "\\b(?:wave reflection|reflected wave|reflection sites?|transit time|pulse transit\\w*|arrival time|wave transit)\\b"},
+    "transfer_impedance": {"regex": "\\b(?:transfer function|impedance|frequency response|hydraulic filter|hydraulic filtering)\\b"},
+    "system_identification": {"regex": "\\b(?:system identification|volterra|wiener kernel|laguerre|autoregressive|arima|arma|uryson|impulse response|dynamic model(?:ing|ling)?)\\b"},
+    "inverse_identifiability": {"regex": "\\b(?:identifiab\\w*|inverse problems?|parameter identification|parameter estimation|personalisation|personalization|sloppiness)\\b"},
+    "simulation_model": {"regex": "\\b(?:in silico|in-silico|simulat\\w*|virtual patients?|digital twins?|computational model|one-dimensional model|1d model|reduced-order model|lumped[- ]parameter)\\b"},
+    "controlled_perturbation": {"regex": "\\b(?:perturb\\w*|intervention|white noise|lower body negative pressure|exercise|maneuvers?|manoeuvres?|controlled|varying|variation|sensitivity analysis)\\b"},
+    "multimodal_multisite": {"regex": "\\b(?:multimodal|multi-modal|multi-site|multisite|multiple signals|multiple sites|pressure and flow|pressure and volume|ppg and|ecg and ppg)\\b"},
+    "measurement_design": {"regex": "\\b(?:experimental design|measurement set|measurements needed|sensors?|data acquisition|measurement design|output set|clinical metrics?|clinical measures)\\b"},
+    "degeneracy_nonuniqueness": {"regex": "\\b(?:non[- ]unique|nonuniqu\\w*|degeneracy|degenerate|indistinguish\\w*|ambigu\\w*|multiple parameter values|same waveform|similar waveform|confound\\w*)\\b"}
+  },
+  "primary_role_priority": ["vascular_age_assessment","age_related_arterial_hemodynamics","inverse_or_identifiability","dynamic_system_identification","arterial_wave_mechanics","contextual"],
+  "collision_classes": {
+    "C0_direct_collision": "Explicitly tests cross-age physiological aliasing/non-uniqueness of arterial pulse phenotypes from known generating cardiovascular states and/or resolves such aliases with added measurements.",
+    "C1_strong_conceptual_threat": "Direct cardiovascular identifiability, inverse-problem, experimental-design, or arterial-network system-inference precedent that constrains general novelty claims.",
+    "C2_strong_domain_neighbor": "Direct vascular-age/pulse-wave or age-dependent arterial-dynamics work without the locked global aliasing/rescue conjunction.",
+    "C3_close_neighbor": "Related arterial-wave, ageing, reflection, transfer, or system-identification work without direct conceptual overlap.",
+    "C4_contextual": "No material collision with the locked concept."
+  },
+  "candidate_audit_rule": "all vascular_age_assessment OR (ageing_context AND arterial_pulse_wave) OR all 27 records previously flagged P1/P2 solely to maximize recall; prior labels do not determine final class",
+  "negative_control": {"n": 50,"seed": 20260829,"sampling_frame": "records not entering high-relevance collision audit"},
+  "axis_bit_order": ["ageing_context","arterial_pulse_wave","vascular_age_assessment","stiffness_pwv","reflection_transit","transfer_impedance","system_identification","inverse_identifiability","simulation_model","controlled_perturbation","multimodal_multisite","measurement_design","degeneracy_nonuniqueness"],
+  "compact_map_encoding": "axis_mask_hex stores bit i for axis_bit_order[i]; primary_role uses CTX/AGE/SYS/WAV/VAGE/INV; high_relevance is 0/1."
+}

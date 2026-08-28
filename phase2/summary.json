@@ -1,0 +1,40 @@
+{
+  "phase": 2,
+  "status": "PASS",
+  "biological_endpoint_executed": false,
+  "frozen_corpus_records": 889,
+  "high_relevance_collision_audit_records": 111,
+  "negative_control_records": 50,
+  "negative_control_seed": 20260829,
+  "automated_axis_counts": {
+    "ageing_context": 222,
+    "arterial_pulse_wave": 112,
+    "vascular_age_assessment": 25,
+    "stiffness_pwv": 76,
+    "reflection_transit": 116,
+    "transfer_impedance": 72,
+    "system_identification": 89,
+    "inverse_identifiability": 2,
+    "simulation_model": 49,
+    "controlled_perturbation": 118,
+    "multimodal_multisite": 27,
+    "measurement_design": 18,
+    "degeneracy_nonuniqueness": 16
+  },
+  "fixed_corpus_collision_counts": {
+    "C0_direct_collision": 0,
+    "C3_close_neighbor": 70,
+    "C2_strong_domain_neighbor": 38,
+    "C1_strong_conceptual_threat": 3
+  },
+  "external_collision_audit_records": 14,
+  "external_collision_counts": {
+    "C1_strong_conceptual_threat": 7,
+    "C2_strong_domain_neighbor": 7
+  },
+  "direct_collision_identified": false,
+  "meta_analysis_performed": false,
+  "reason_no_meta_analysis": "The corpus contains heterogeneous conceptual/methodological outcomes without a defensible common quantitative estimand.",
+  "source_query_exactly_preserved": false,
+  "novelty_claim_level": "No study was identified in the frozen 889-record map or targeted current collision audit that executes the locked conjunction: exhaustive cross-age physiological pulse aliasing from known generating states + compensation mapping + measurement rescue."
+}
