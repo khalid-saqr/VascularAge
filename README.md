@@ -6,496 +6,251 @@
 
 **An exhaustive in-silico trial of physiological aliasing and measurement rescue in 4,374 virtual haemodynamic simulations**
 
-[![Protocol](https://img.shields.io/badge/protocol-PROSPECTIVELY%20LOCKED-2ea44f?style=for-the-badge)](phase3/LOCK_MANIFEST.json)
-[![Endpoints](https://img.shields.io/badge/biological%20endpoints-NOT%20EXECUTED-2563eb?style=for-the-badge)](#controlled-state)
-
+[![Trial](https://img.shields.io/badge/trial-COMPLETE-2ea44f?style=for-the-badge)](#trial-status)
+[![Protocol](https://img.shields.io/badge/protocol-PROSPECTIVELY%20LOCKED-2563eb?style=for-the-badge)](phase3/LOCK_MANIFEST.json)
 [![PWDB](https://img.shields.io/badge/PWDB-4%2C374%20simulations-6f42c1)](https://doi.org/10.5281/zenodo.3275625)
-[![Design](https://img.shields.io/badge/design-6%20ages%20%C3%97%20729%20states-0ea5e9)](#trial-population)
-[![Cross-age pairs](https://img.shields.io/badge/cross--age%20pairs-7%2C971%2C615-8b5cf6)](#primary-observation-p0)
-[![Compute](https://img.shields.io/badge/compute-JAX%20%2F%20XLA-111827)](#computational-contract)
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.3275625-blue)](https://doi.org/10.5281/zenodo.3275625)
+[![Pairs](https://img.shields.io/badge/cross--age%20pairs-7%2C971%2C615-8b5cf6)](#design)
 
 </div>
 
 ---
 
-## Scientific objective
+## Trial status
 
-**VascularAge** implements **The Locked In-Silico Trial Concept**: a prospectively specified computational experiment asking whether arterial age is uniquely recoverable from arterial pulse phenotypes.
+The locked computational trial is **complete**. Qualification, evidence mapping, prospective protocol lock, confirmatory execution, robustness analysis, and the final tie-sensitivity closure have all been executed and audited.
 
-The trial addresses three linked questions:
-
-1. **Physiological aliasing** — can distinct age-conditioned cardiovascular states generate experimentally indistinguishable arterial pulses?
-2. **Mechanism** — which controlled physiological compensations create those cross-age aliases?
-3. **Measurement rescue** — which additional vascular observations eliminate ambiguity that remains when radial pressure is observed alone?
-
-The governing inverse-problem statement is
-
-$$
-(a_1,\boldsymbol{\theta}_1) \neq (a_2,\boldsymbol{\theta}_2)
-\quad\text{while}\quad
-Y(a_1,\boldsymbol{\theta}_1) \approx Y(a_2,\boldsymbol{\theta}_2).
-$$
-
-The project therefore does **not** assume that a pulse-derived age estimate is physiologically unique merely because a predictive model can estimate age accurately.
-
----
-
-## Controlled state
-
-| Control | Status |
+| Stage | Status |
 |---|---|
-| Canonical trial specification | **Frozen** |
-| PWDB / VascuQuest source qualification | **PASS** |
-| JAX/XLA computational qualification | **PASS** |
+| Source / engine qualification | **PASS** |
 | Evidence map and novelty collision audit | **PASS** |
-| Confirmatory protocol | **Cryptographically locked** |
-| Real cross-age biological endpoints | **Not executed** |
+| Prospective confirmatory protocol | **LOCKED** |
+| Phase 4 confirmatory trial | **EXECUTED** |
+| Amendment 001 | **EXECUTED** |
+| Phase 5 S2 robustness | **PASS** |
+| Phase 5B tie-sensitivity closure | **PASS** |
+| Computational study | **COMPLETE** |
 
-The authoritative Phase-3 lock package is
+The authoritative scientific lock identities are:
 
 ```text
+Phase 3 protocol lock
 89321ec7c7c8909814cd8ab121726c0fcdf0ce5ec2bc44f67795759690b66963
-```
 
-The guarded runner is present in the repository, but execution of the real biological trial requires an explicit execution command and the matching lock identifier.
+Phase 4 Amendment 001 lock
+1a87a71b638ae4311a1fc4d71c07b4a4a7760f0087a8a25f534774c36bccf7d7
 
----
+Phase 5 S2 lock
+97d831b3b3770dddcec9101f3095ecd92d190c4c9f4a1c17e67c2a6c3b8dfb05
 
-## Interactive trial logic
-
-The flowchart below is the conceptual map of the locked in-silico trial. On Mermaid-capable GitHub renderers, selected nodes link directly to the corresponding README sections.
-
-```mermaid
-flowchart TD
-    A["Question<br/>Is arterial age uniquely identifiable from the pulse?"]
-    B["Qualified source<br/>PWDB via VascuQuest<br/>4,374 virtual subjects"]
-    C["P0 observation<br/>Radial pressure<br/>512-point periodic waveform"]
-    D["Enumerate cross-age universe<br/>7,971,615 unordered pairs"]
-    E["Compute pair evidence<br/>pressure RMSE + cycle-duration difference"]
-    F{"Alias under locked tolerance?"}
-    G["No surviving cross-age alias<br/>identifiable at that tolerance"]
-    H["Cross-age alias exists<br/>store nearest target + pair evidence"]
-    I["Primary estimands<br/>subject results + tolerance surface + age-pair matrix"]
-    J["Compensation analysis<br/>factor-change vectors + motif null"]
-    K["Measurement rescue<br/>strictly nested M1 → M4"]
-    L["Replication<br/>P1 Digital PPG<br/>P2 Carotid pressure"]
-    M["Conventional benchmark<br/>PWV + AIx + brachial SBP"]
-    N["Local information geometry<br/>F = JᵀJ"]
-    O["Falsification / downgrade<br/>S1 → S7"]
-    P["Locked output package"]
-
-    A --> B --> C --> D --> E --> F
-    F -->|No| G --> I
-    F -->|Yes| H --> I
-    H --> J --> K --> P
-    I --> L --> P
-    I --> M --> P
-    I --> N --> P
-    I --> O --> P
-
-    click C "#primary-observation-p0" "Open the P0 definition"
-    click K "#measurement-rescue" "Open measurement rescue"
-    click L "#replication-arms" "Open replication arms"
-    click M "#conventional-benchmark" "Open conventional benchmark"
-    click N "#local-information-geometry" "Open information geometry"
-    click O "#falsification-and-downgrade-rules" "Open falsification rules"
+Phase 5B tie-sensitivity lock
+6b9f11bf0c662c8263e531b0440882881d79b5ab70aaa4aaeffd4e4a69d741c2
 ```
 
 ---
 
-## Nomenclature
+## Scientific question
 
-### Mathematical symbols
+VascularAge tests whether arterial age is uniquely recoverable from arterial pulse phenotypes, rather than assuming that accurate age prediction implies physiological identifiability.
 
-| Symbol | Definition | Units / domain |
-|---|---|---|
-| $\mathcal{A}$ | Locked model-age set $\{25,35,45,55,65,75\}$ | years |
-| $i,j$ | Virtual-subject indices | $0,\ldots,4373$ |
-| $a_i$ | Model age of subject $i$ | years |
-| $\boldsymbol{\xi}_i$ | Standardised factor-state vector of subject $i$ | $(HR,SV,LVET,DIA,PWV,MAP)$ |
-| $P_i(\phi)$ | Periodic radial-pressure waveform over phase $\phi$ | mmHg |
-| $T_i$ | Active cardiac-cycle duration | ms |
-| $e_P$ | Pressure tolerance | mmHg |
-| $e_T$ | Cycle-duration tolerance | ms |
-| $e_{rel}$ | Relative tolerance for area/flow channels | dimensionless |
-| $\Delta P_{ij}$ | Pressure-waveform RMSE | mmHg |
-| $\Delta T_{ij}$ | Absolute cycle-duration difference | ms |
-| $d_{ij}$ | Locked normalised cross-age pair distance | dimensionless |
-| $D_i$ | Minimum cross-age distance for subject $i$ | dimensionless |
-| $\Delta\boldsymbol{\xi}$ | Physiological compensation vector | standardised factor levels |
-| $Q$ | Reconstructed volumetric flow, $Q=UA$ | source-consistent reconstructed units |
-| $J$ | Local finite-difference observation Jacobian | matrix |
-| $F$ | Local information / pullback metric, $F=J^\top J$ | matrix |
-| $\rho_{rescue}$ | Fraction of P0-aliased subjects rescued by a richer arm | $[0,1]$ |
+The inverse problem is:
 
-### Abbreviations
+```text
+(age_1, physiology_1) != (age_2, physiology_2)
+while
+observation(age_1, physiology_1) ~= observation(age_2, physiology_2)
+```
 
-| Abbreviation | Meaning |
-|---|---|
-| AIx | Augmentation index |
-| DIA | Arterial diameter factor |
-| HR | Heart rate |
-| JAX | Accelerated numerical computing framework used by the confirmatory engine |
-| LVET | Left-ventricular ejection time |
-| MAP | Mean arterial pressure; PWDB source field `MBP` |
-| PPG | Photoplethysmogram |
-| PWDB | Pulse Wave DataBase |
-| PWV | Pulse-wave velocity |
-| RMSE | Root-mean-square error |
-| SBP | Systolic blood pressure |
-| SV | Stroke volume |
-| XLA | Accelerated Linear Algebra compiler backend |
+The study asks three linked questions:
+
+1. Can different age-conditioned cardiovascular states generate experimentally indistinguishable pulses?
+2. Which physiological compensations create those cross-age aliases?
+3. Which additional vascular measurements remove ambiguity left by radial pressure alone?
 
 ---
 
-## Trial population
+## Design
 
-The trial uses the canonical **Pulse Wave DataBase (PWDB)**, Zenodo record **3275625**, accessed through the qualified VascuQuest interface.
+The study uses the canonical Pulse Wave DataBase (PWDB), Zenodo record `3275625`, through the qualified VascuQuest data interface.
 
-| Property | Locked value |
+| Property | Value |
 |---|---:|
-| Virtual haemodynamic simulation instances | **4,374** |
+| Virtual haemodynamic simulations | **4,374** |
 | Model ages | **25, 35, 45, 55, 65, 75 years** |
 | States per age | **729** |
-| Factorial structure | **$3^6$** |
-| Standardised factor levels | **$-1,0,+1$** |
+| Factorial structure | **3^6** |
 | Controlled factors | **HR, SV, LVET, DIA, PWV, MAP** |
-| PWDB source mapping for MAP | **`MBP`** |
+| Unordered cross-age pairs | **7,971,615** |
 
-Let
+A PWDB virtual subject is a simulation instance, not a patient. Reported alias proportions are therefore design prevalences over the complete factorial state space, not estimates of prevalence in a human population.
 
-$$
-\mathcal{A}=\{25,35,45,55,65,75\}.
-$$
+### Primary observation P0
 
-At each age there are $729=3^6$ controlled states, so
+P0 is absolute radial pressure in mmHg, periodically resampled to 512 phase points while retaining active-cycle duration.
 
-$$
-6\times729=4374
-$$
-
-virtual subjects are included with equal primary weight.
-
-A PWDB `VirtualSubject` is a **simulation instance, not a patient**. Any alias proportion is therefore a **design prevalence over the complete factorial state space**, not a prevalence estimate in a human population.
-
----
-
-## Primary observation P0
-
-### Radial-pressure representation
-
-The primary observation is source radial pressure:
+For pair `(i,j)`:
 
 ```text
-site      = Radial
-quantity  = pressure
-unit      = mmHg
-samples   = 512 phase points
+pressure discrepancy = RMSE(P_i, P_j)
+duration discrepancy = |T_i - T_j|
+
+d = sqrt((pressure_RMSE / eP)^2 + (duration_difference / eT)^2)
 ```
 
-Each qualified active cycle is mapped periodically to phase $\phi\in[0,1)$ using periodic linear interpolation while preserving absolute pressure and cycle duration.
+Reference tolerances are `eP = 5 mmHg` and `eT = 10 ms`; a pair is aliased when `d <= 1`.
 
-The primary representation forbids mean subtraction, z-normalisation, peak scaling, pulse-pressure scaling, and subject-specific morphology normalisation.
-
-### Cross-age pair universe
-
-Every state is compared with every state belonging to a different age group. The locked universe is
-
-$$
-\binom{6}{2}\,729^2 = 7{,}971{,}615
-$$
-
-unordered cross-age pairs spanning all 15 age-pair combinations.
-
-For pair $(i,j)$,
-
-$$
-\Delta P_{ij}
-=\sqrt{\operatorname{mean}\!\left[(P_i-P_j)^2\right]},
-$$
-
-and
-
-$$
-\Delta T_{ij}=|T_i-T_j|.
-$$
-
-At general tolerances $(e_P,e_T)$, the locked distance is
-
-$$
-d_{ij}(e_P,e_T)
-=\sqrt{\left(\frac{\Delta P_{ij}}{e_P}\right)^2
-+\left(\frac{\Delta T_{ij}}{e_T}\right)^2}.
-$$
-
-The reference point is $e_P=5\,\mathrm{mmHg}$ and $e_T=10\,\mathrm{ms}$. A pair is classified as aliased when
-
-$$
-d_{ij}\le 1.
-$$
-
-The full tolerance surface is
-
-$$
-e_P\in\{1,2,3,5,8,10\}\ \mathrm{mmHg},
-\qquad
-e_T\in\{2,5,10,20\}\ \mathrm{ms},
-$$
-
-giving **24 prespecified tolerance points**.
-
-The primary subject-level estimand is
-
-$$
-D_i=\min_{j:\,a_j\ne a_i} d(i,j).
-$$
-
-When several targets lie within the locked tie tolerance $10^{-6}$, the canonical confirmatory result uses the smallest global target-row index.
+Primary processing forbids mean subtraction, z-normalisation, peak scaling, pulse-pressure scaling, and subject-specific morphology normalisation.
 
 ---
 
-## Replication arms
+## Main results
 
-Replication tests whether the principal phenomenon is specific to the radial-pressure observation.
+### Physiological aliasing
 
-| Arm | Observation | Locked role |
-|---|---|---|
-| **P1** | Digital PPG | Shape-only replication plus duration |
-| **P2** | Carotid pressure | Same pressure-distance logic as P0 |
+At the locked P0 reference tolerance:
 
-Digital PPG is treated as an arbitrary-unit morphology signal; the trial does not invent a physical amplitude scale for it.
+| Result | Value |
+|---|---:|
+| Aliased cross-age pairs | **53,842** |
+| Subjects participating in at least one alias | **2,764 / 4,374** |
+| Subject alias fraction | **0.6319158665** |
 
----
+Replication arms also contained substantial cross-age aliasing:
 
-## Measurement rescue
+| Arm | Pair aliases | Alias-subject fraction |
+|---|---:|---:|
+| P0 Radial pressure | 53,842 | 0.6319 |
+| P1 Digital PPG | 298,547 | 0.6591 |
+| P2 Carotid pressure | 98,311 | 0.6507 |
 
-Measurement rescue asks: **if P0 is ambiguous, which richer observation set removes that ambiguity?**
+### Measurement rescue
 
-The hierarchy is strictly nested:
+Measurement rescue was strictly nested from the P0 alias set.
 
-```mermaid
-flowchart LR
-    P0["P0<br/>Radial pressure"] --> M1["M1<br/>+ Carotid area"]
-    M1 --> M2["M2<br/>+ Carotid pressure<br/>+ Carotid reconstructed flow"]
-    M2 --> M3["M3<br/>+ AorticRoot / Radial / Femoral mechanics"]
-    M3 --> M4["M4<br/>All 13 common sites<br/>pressure + flow + area"]
+| Arm | Surviving pair aliases | Surviving subjects | Rescue fraction |
+|---|---:|---:|---:|
+| M1 | 6,838 | 1,580 | 0.4284 |
+| M2 | 0 | 0 | **1.0000** |
+| M3 | 0 | 0 | **1.0000** |
+| M4 | 0 | 0 | **1.0000** |
 
-    click P0 "#primary-observation-p0" "Open P0"
-    click M4 "#measurement-rescue" "Open rescue definition"
-```
+Within this factorial in-silico design, the richer M2 observation set eliminated every P0 reference alias, and the nested M3/M4 arms retained that complete rescue.
 
-A source state is rescued in arm $M_k$ when it has at least one P0 reference alias but zero surviving aliases under the richer arm.
+### Compensation motifs
 
-For area and reconstructed flow, the locked symmetric relative-RMS discrepancy is
+For each P0-aliased source, the locked mechanism analysis used its canonical nearest cross-age target and the factor-change vector in order `(HR, SV, LVET, DIA, PWV, MAP)`.
 
-$$
-r(x,y)
-=\frac{\operatorname{RMS}(x-y)}
-{\sqrt{\tfrac12\left[\operatorname{RMS}(x)^2+\operatorname{RMS}(y)^2\right]}}.
-$$
+| Quantity | Value |
+|---|---:|
+| Distinct motifs | **178** |
+| Top-20 motif count | **1,609 / 2,764** |
+| Top-20 concentration | **0.5821273517** |
+| Locked null 95th percentile | **0.0336468886** |
+| Locked permutations | **2,000** |
+| S4 no-go | **false** |
 
-The reference relative tolerance is $e_{rel}=0.05$, with
+### Phase 5 robustness
 
-$$
-e_{rel}\in\{0.01,0.02,0.05,0.10,0.20\}.
-$$
+The prospectively locked S2 test replaced RMSE pressure discrepancy with matched-scale L1/MAE and Linf alternatives.
 
-Reconstructed flow obeys
+| Metric | Alias subjects | Jaccard vs P0 |
+|---|---:|---:|
+| P0 / RMSE | 2,764 | 1.0000 |
+| L1 / MAE | 2,874 | **0.9617258177** |
+| Linf / maximum error | 1,724 | **0.6237337192** |
 
-$$
-Q=UA
-$$
+The locked S2 no-go required **both** Jaccard values to be below `0.50`; it did not fire.
 
-and retains VascuQuest evidence status **RECONSTRUCTED**.
+A post-execution mathematical audit notes that, under the identical scales and 512-point representation, `L1 <= L2(RMSE) <= Linf`. Consequently the L1 subject set contains P0 and, once the observed P0 prevalence was known, the L1 arm could not independently make the two-arm AND criterion fail. The Linf result remains independently informative and also exceeded the locked threshold. No retrospective threshold or adjudication was changed.
 
-The M4 upper-bound arm uses pressure, reconstructed flow, and luminal area across the 13 qualified common sites: `AorticRoot`, `ThorAorta`, `AbdAorta`, `IliacBif`, `Carotid`, `SupTemporal`, `SupMidCerebral`, `Brachial`, `Radial`, `Digital`, `CommonIliac`, `Femoral`, and `AntTibial`.
+### Phase 5B tie-sensitivity closure
 
----
+The Phase-3 protocol required the compensation analysis to be checked over co-nearest alternatives within `1e-6` of the minimum distance.
 
-## Physiological compensation analysis
+| Quantity | Result |
+|---|---:|
+| Subjects with co-nearest alternatives | **0 / 4,374** |
+| P0-aliased sources with co-nearest alternatives | **0 / 2,764** |
+| Maximum co-nearest count | **1** |
+| Minimum nearest/second-nearest gap, all subjects | `1.4781951904296875e-05` |
+| Minimum gap, P0 aliases | `4.976987838745117e-05` |
+| Co-nearest-sensitive top-20 concentration | **0.5821273517** |
+| Difference from canonical | **0.0** |
+| Outcome | **NO_CO_NEAREST_ALTERNATIVES** |
 
-For a P0-aliased source state and its canonical nearest cross-age target,
-
-$$
-\Delta\boldsymbol{\xi}
-=\boldsymbol{\xi}_{\text{target}}
--\boldsymbol{\xi}_{\text{source}}.
-$$
-
-The vector is retained in locked factor order
-
-$$
-(HR,SV,LVET,DIA,PWV,MAP).
-$$
-
-The confirmatory mechanism test evaluates recurring compensation motifs using the top 20 motifs and a locked null with **2,000 permutations** and random seed `20260829`.
-
----
-
-## Conventional benchmark
-
-The full-waveform result is benchmarked against aortic PWV, aortic AIx, and brachial SBP.
-
-The PWV-only alias rule is
-
-$$
-\frac{2|x-y|}{|x|+|y|}\le0.05,
-$$
-
-with denominator floor $10^{-12}$.
-
-The composite benchmark additionally requires AIx absolute difference $\le5$ percentage points and brachial SBP absolute difference $\le5\,\mathrm{mmHg}$.
-
-A novelty downgrade is triggered if PWV alone nearly reproduces the P0 alias graph according to the locked S5 criteria.
+Thus the canonical smallest-index tie-break never resolved an actual tie among subjects entering the compensation analysis.
 
 ---
 
-## Local information geometry
+## Falsification status
 
-At the baseline factorial state
+The trial was prospectively designed to permit failure or downgrade through rules S1-S7. None of the locked no-go or downgrade rules fired in the completed trial.
 
-$$
-\boldsymbol{\xi}=(0,0,0,0,0,0)
-$$
-
-within each age stratum, the trial forms a central-difference Jacobian $J$ and computes
-
-$$
-F=J^\top J.
-$$
-
-Reported quantities are eigenvalues, eigenvectors, condition number, and weakest observable direction. This is a secondary explanatory analysis of local observability; it does not replace the global cross-age alias search.
+The formal adjudications and their implementation are preserved in the Phase-3, Phase-4, Phase-5, and Phase-5B packages. No result in this README changes those locked definitions.
 
 ---
 
-## Falsification and downgrade rules
-
-The confirmatory trial is designed to be able to fail.
-
-| Rule | Consequence |
-|---|---|
-| **S1** | No major aliasing claim if alias fraction is $<0.01$ at every P0 tolerance point |
-| **S2** | No robust aliasing claim if legitimate alternative pressure metrics yield poor alias-set agreement in Phase 5 |
-| **S3** | No physiological aliasing claim if the reference result is predominantly a cycle-duration artefact |
-| **S4** | No compensation-mechanism claim if motif concentration fails the locked null criterion |
-| **S5** | Novelty downgrade if PWV alone essentially reproduces the P0 alias graph |
-| **S6** | No measurement-rescue claim if every M1–M4 rescue fraction is $<0.10$ |
-| **S7** | Primary claim invalid if forbidden subject-specific normalisation becomes necessary |
-
-The exact machine-readable rules in [`phase3/LOCKED_TRIAL_CONFIG.json`](phase3/LOCKED_TRIAL_CONFIG.json) are authoritative.
-
----
-
-## Computational contract
-
-The confirmatory engine is locked for JAX/XLA execution with:
-
-| Item | Locked choice |
-|---|---|
-| Production arithmetic | `float32` |
-| CPU reference arithmetic | `float64` |
-| JAX x64 production mode | disabled |
-| Age-pair block shape | $729\times729$ |
-| Pair index dtype | `int32` |
-| Pair-component storage | `float32` |
-| Tie tolerance | $10^{-6}$ |
-| Numerical audit STOP threshold | $|\Delta D_{ref}|>10^{-4}$ or changed alias classification |
-
-Phase 1 qualified the source boundary and synthetic JAX engine externally on Google Colab T4 before the confirmatory protocol was locked.
-
----
-
-## Data and evidence semantics
-
-VascuQuest is the qualified interface to canonical PWDB record `3275625`.
-
-| Quantity | Evidence class |
-|---|---|
-| Pressure | **SOURCE** |
-| Flow velocity | **SOURCE** |
-| Luminal area | **SOURCE** |
-| Digital PPG | **SOURCE** |
-| Reconstructed flow $Q=UA$ | **RECONSTRUCTED** |
-
-The repository does not rehost PWDB and does not reinterpret virtual simulations as observed human participants.
-
----
-
-## Evidence and novelty boundary
-
-The novelty boundary was fixed before biological execution using a frozen 889-record evidence map, a 111-record high-relevance collision audit, 50 seeded negative controls, and a targeted current collision audit.
-
-The permitted statement is deliberately narrow:
-
-> Within the mapped evidence and targeted collision audit, no study was identified that explicitly treats arterial age as a global non-unique inverse problem by exhaustively testing whether distinct age-conditioned cardiovascular states can generate observationally indistinguishable arterial pulse phenotypes, mapping the physiological compensations that create those aliases, and quantifying which additional vascular measurements resolve them.
-
-The project does **not** claim to be the first cardiovascular identifiability study, pulse-wave inverse problem, cardiovascular sloppiness study, multimodal identifiability study, vascular-age estimator, or arterial system-identification study.
-
----
-
-## Protocol integrity
-
-The Phase-3 lock cryptographically binds the canonical scientific protocol, the externally qualified source/engine boundary, the Phase-2 novelty boundary, the complete confirmatory configuration, mathematical primitives, source semantics, guarded execution runner, and required output inventory.
-
-Authoritative lock identifier:
+## Repository structure
 
 ```text
-89321ec7c7c8909814cd8ab121726c0fcdf0ce5ec2bc44f67795759690b66963
+VascularAge/
+├── phase1/      qualification contract and audit
+├── phase2/      evidence map, screening and novelty collision audit
+├── phase3/      prospectively locked confirmatory protocol
+├── phase4/      Amendment 001 and confirmatory execution contract
+├── phase5/      S2 robustness lock and post-execution audit
+├── phase5b/     final tie-sensitivity lock and audit
+├── notebooks/   executed Colab notebooks retained as provenance
+├── src/         scientific analysis primitives
+├── scripts/     guarded execution and validation entry points
+├── tests/       deterministic unit / known-answer tests
+└── .github/     continuous validation
 ```
 
-Locked scientific definitions must not be altered after biological outcomes are observed without a disclosed protocol amendment.
+Development and execution artifacts are retained only where they contribute to protocol provenance, reproducibility, or auditability.
 
 ---
 
-## Repository map
+## Reproducibility and evidence
 
-| Path | Authority |
-|---|---|
-| [`README.md`](README.md) | Authoritative project overview |
-| [`protocol/`](protocol/) | Canonical scientific specification and estimands |
-| [`notebooks/01_engine_qualification.ipynb`](notebooks/01_engine_qualification.ipynb) | External Phase-1 qualification evidence |
-| [`phase1/`](phase1/) | Source and computational qualification contract |
-| [`phase2/`](phase2/) | Evidence map and novelty collision audit |
-| [`phase3/ANALYSIS_PLAN.md`](phase3/ANALYSIS_PLAN.md) | Human-readable confirmatory protocol |
-| [`phase3/LOCKED_TRIAL_CONFIG.json`](phase3/LOCKED_TRIAL_CONFIG.json) | Machine-readable scientific authority |
-| [`phase3/LOCK_MANIFEST.json`](phase3/LOCK_MANIFEST.json) | Cryptographic protocol identity |
-| [`phase3/LOCKED_OUTPUT_SCHEMA.json`](phase3/LOCKED_OUTPUT_SCHEMA.json) | Required confirmatory output inventory |
-| [`scripts/phase4_execute_locked.py`](scripts/phase4_execute_locked.py) | Guarded confirmatory runner |
-| [`src/vascularage/confirmatory.py`](src/vascularage/confirmatory.py) | Frozen mathematical analysis primitives |
-| [`src/vascularage/locked_io.py`](src/vascularage/locked_io.py) | Frozen qualified PWDB preparation semantics |
+The large biological evidence bundles are not duplicated in Git. Their exact identities are bound through SHA-256 manifests and post-execution audit records.
 
----
+Key preserved Phase-4 source hashes include:
 
-## Required confirmatory output package
+```text
+primary_pair_components.npz
+f4e411dab367bf758466c89d65dcf261b2518af6fbd718b83eae9c2e021184bf
 
-When the guarded trial is eventually executed, the locked output package requires:
+primary_subject_results.csv
+aa20eb842496e8ad3bb85232bafff18ba4724903f76f1e79e6b1ff3da036829a
+```
 
-1. `execution_provenance.json`
-2. `primary_subject_results.csv`
-3. `primary_tolerance_surface.csv`
-4. `primary_age_pair_matrix.csv`
-5. `primary_pair_components.npz`
-6. `replication_summary.csv`
-7. `compensation_vectors.csv`
-8. `compensation_motifs.csv`
-9. `compensation_null_summary.json`
-10. `measurement_rescue_summary.csv`
-11. `conventional_benchmark.json`
-12. `information_geometry.json`
-13. `numerical_audit.json`
-14. `trial_summary.json`
+Phase 5B independently reverified the preserved Phase-4 artifacts before closing the final sensitivity obligation.
+
+The executed notebooks are retained in `notebooks/` as immutable execution provenance; the scientific definitions live in the locked JSON/Markdown packages and Python analysis modules rather than in notebook outputs.
 
 ---
 
-## References
+## Validation
 
-- Charlton PH, et al. **Modeling arterial pulse waves in healthy aging: a database for in silico evaluation of hemodynamics and pulse wave indexes.** *American Journal of Physiology-Heart and Circulatory Physiology* (2019). [doi:10.1152/ajpheart.00218.2019](https://doi.org/10.1152/ajpheart.00218.2019)
-- **Pulse Wave DataBase (PWDB)** — [doi:10.5281/zenodo.3275625](https://doi.org/10.5281/zenodo.3275625)
-- **VascuQuest** — <https://github.com/KNOWDYN/VascuQuest>
+Local validation:
+
+```bash
+python -m pip install -e ".[test]" "jax[cpu]"
+pytest -q
+python scripts/validate_phase1_static.py
+python scripts/phase2_validate.py
+python scripts/phase3_validate.py
+python scripts/validate_phase4_amendment001.py
+python scripts/validate_phase5_s2.py
+python scripts/validate_phase5b.py
+```
+
+GitHub Actions performs the same repository-wide validation and verifies that guarded execution entry points cannot run their biological/evidence endpoints without the explicit locked execution flags.
 
 ---
 
-## Interpretation discipline
+## Data source
 
-Until the guarded confirmatory execution is explicitly performed, this repository contains **no substantive biological result** about cross-age alias prevalence, dominant compensation motifs, measurement-rescue effectiveness, age-specific ambiguity, or superiority over conventional vascular-age markers.
+Pulse Wave DataBase (PWDB), Zenodo DOI: **10.5281/zenodo.3275625**.
+
+The repository does not claim that the virtual-subject design establishes clinical diagnostic performance. It tests identifiability and measurement ambiguity inside the specified in-silico factorial system.
