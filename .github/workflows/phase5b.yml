@@ -1,0 +1,35 @@
+name: Phase 5B tie-sensitivity closure CI
+on:
+  push:
+    branches: [phase-05b-tie-sensitivity-closure]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation dependencies
+        run: python -m pip install -e ".[test]"
+      - name: Run repository tests
+        run: pytest -q
+      - name: Validate Phase 5B tie-sensitivity lock
+        run: python scripts/validate_phase5b.py
+      - name: Confirm evidence-only closure runner remains guarded
+        shell: bash
+        run: |
+          set +e
+          output=$(python scripts/phase5b_tie_closure.py \
+            --expected-lock-sha 6b9f11bf0c662c8263e531b0440882881d79b5ab70aaa4aaeffd4e4a69d741c2 \
+            --repo-root . \
+            --phase4-evidence-root /tmp/phase5b-no-phase4/locked_trial_amendment001_20260829T153743Z \
+            --output-parent /tmp/phase5b-no-output 2>&1)
+          code=$?
+          set -e
+          test "$code" -ne 0
+          echo "$output" | grep -q "Phase-5B tie-sensitivity execution requires --execute-tie-closure"
+          test ! -e /tmp/phase5b-no-output
