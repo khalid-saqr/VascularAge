@@ -111,7 +111,6 @@ def main() -> int:
         LOCK_SHA,
         "--phase4-root",
         "--output-parent",
-        "/phase_05",
         "PHASE 5 S2 EXTERNAL EXECUTION: COMPLETE",
         "jax.default_backend()",
     ):
