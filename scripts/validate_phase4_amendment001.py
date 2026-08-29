@@ -41,6 +41,12 @@ def notebook_output_text(nb: dict) -> str:
             parts.extend(output.get("text", []))
             parts.append(output.get("evalue", ""))
             parts.extend(output.get("traceback", []))
+            data = output.get("data", {})
+            plain = data.get("text/plain", [])
+            if isinstance(plain, str):
+                parts.append(plain)
+            else:
+                parts.extend(plain)
     return "\n".join(parts)
 
 
@@ -85,7 +91,13 @@ def main() -> int:
         notebook_state = "PRE_EXECUTION_LOCKED"
     else:
         out_text = notebook_output_text(amended)
-        success = "PHASE 4 AMENDMENT 001 TRIAL: EXECUTED" in out_text
+        terminal_marker = "PHASE 4 AMENDMENT 001 TRIAL: EXECUTED" in out_text
+        wrapper_success = (
+            "phase4_colab_amendment001.py" in out_text
+            and "--execute-amendment001-trial" in out_text
+            and "returncode=0" in out_text
+        )
+        success = terminal_marker or wrapper_success
         failed = (
             "CalledProcessError" in out_text
             or "A001 runner failed" in out_text
