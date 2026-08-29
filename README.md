@@ -42,6 +42,7 @@ This is an **in-silico identifiability study**, not a clinical diagnostic study.
 | Question | VascularAge |
 |---|---|
 | Experimental system | Pulse Wave DataBase (PWDB) virtual haemodynamic simulations |
+| PWDB access / qualification software | [VascuQuest 0.1.0](https://github.com/KNOWDYN/VascuQuest), pinned to commit [`79891036e61df3096536da8f647f2297b0d88252`](https://github.com/KNOWDYN/VascuQuest/commit/79891036e61df3096536da8f647f2297b0d88252) |
 | Virtual simulations | **4,374** |
 | Model ages | **25, 35, 45, 55, 65, 75 years** |
 | States per age | **729** |
@@ -113,7 +114,7 @@ The computational study is **complete**. Qualification, evidence mapping, prospe
 
 ### Virtual population
 
-The study uses the canonical Pulse Wave DataBase (PWDB), Zenodo record [`3275625`](https://doi.org/10.5281/zenodo.3275625), through the qualified data interface.
+The study uses the canonical Pulse Wave DataBase (PWDB), Zenodo record [`3275625`](https://doi.org/10.5281/zenodo.3275625). The source-qualification and PWDB access pathway uses [VascuQuest](https://github.com/KNOWDYN/VascuQuest), with the locked trial pinned to exact VascuQuest commit [`79891036e61df3096536da8f647f2297b0d88252`](https://github.com/KNOWDYN/VascuQuest/commit/79891036e61df3096536da8f647f2297b0d88252), corresponding to its validated 0.1.0 research release.
 
 Each model age contains the complete $3^6 = 729$ combination set of six controlled factors in the locked order:
 
@@ -130,7 +131,7 @@ P0 is **absolute Radial pressure in mmHg**, periodically resampled to 512 phase 
 For simulations $i$ and $j$:
 
 $$
-\Delta_P(i,j)=\operatorname{RMSE}(P_i,P_j), \qquad
+\Delta_P(i,j)=\mathrm{RMSE}(P_i,P_j), \qquad
 \Delta_T(i,j)=|T_i-T_j|.
 $$
 
@@ -250,7 +251,7 @@ The locked S2 no-go required **both** alternative Jaccard values to be below 0.5
 **Post-execution interpretation.** For the same pressure-difference vector and matched scales,
 
 $$
-\operatorname{MAE}(\Delta P)\le\operatorname{RMSE}(\Delta P)\le\|\Delta P\|_\infty.
+\mathrm{MAE}(\Delta P)\le\mathrm{RMSE}(\Delta P)\le\|\Delta P\|_\infty.
 $$
 
 Consequently the corresponding alias sets are necessarily nested:
@@ -324,9 +325,9 @@ The exact operational definitions are preserved in [`phase3/LOCKED_TRIAL_CONFIG.
 
 ---
 
-## Data and executed evidence
+## Data, software and executed evidence
 
-VascularAge has two distinct external research objects: the **source simulation dataset** and the **executed VascularAge evidence archive**. They serve different roles and should not be conflated.
+Three distinct resources support the trial and serve different roles: the **PWDB source simulation dataset**, the **VascuQuest research-software interface used in the source-qualification/access pathway**, and the **executed VascularAge evidence archive**.
 
 ### Source simulation data
 
@@ -334,6 +335,15 @@ VascularAge has two distinct external research objects: the **source simulation 
 Zenodo DOI: [`10.5281/zenodo.3275625`](https://doi.org/10.5281/zenodo.3275625)
 
 PWDB provides the 4,374 virtual haemodynamic simulations analysed by the trial.
+
+### PWDB access and qualification software
+
+**VascuQuest**  
+Repository: [KNOWDYN/VascuQuest](https://github.com/KNOWDYN/VascuQuest)  
+Version used by the locked trial: **0.1.0**  
+Pinned commit: [`79891036e61df3096536da8f647f2297b0d88252`](https://github.com/KNOWDYN/VascuQuest/commit/79891036e61df3096536da8f647f2297b0d88252)
+
+VascuQuest provides the qualified research interface around PWDB used in the VascularAge source-qualification and data-access pathway. The exact VascuQuest revision is bound into the locked VascularAge configuration; the VascularAge estimands, pairwise analysis, measurement-rescue logic, robustness tests, and adjudication remain implemented and governed in this repository. Exact reproduction should use the pinned VascuQuest commit rather than an unspecified future repository head.
 
 ### VascularAge executed evidence
 
@@ -445,6 +455,12 @@ When analysing, reproducing, or referring specifically to the archived executed 
 For the prospective protocol, implementation, validators, and execution provenance, reference this repository and the relevant commit or lock identity. The Zenodo v1.0.0 evidence archive is tied to publication-base commit:
 
 `f373bee555bce39b5860c47c923dc6c825a4ef90`
+
+### PWDB access software
+
+> Saqr, Khalid M. (2026). *VascuQuest* (Version 0.1.0) [Computer software]. GitHub. https://github.com/KNOWDYN/VascuQuest
+
+The locked VascularAge trial used the exact VascuQuest revision [`79891036e61df3096536da8f647f2297b0d88252`](https://github.com/KNOWDYN/VascuQuest/commit/79891036e61df3096536da8f647f2297b0d88252). Use that pinned revision when reproducing the trial.
 
 ### Source simulation dataset
 
