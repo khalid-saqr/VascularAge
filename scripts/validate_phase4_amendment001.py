@@ -11,6 +11,7 @@ AMENDED_NB = ROOT / "notebooks" / "04_confirmatory_trial_amendment001.ipynb"
 LOCK = ROOT / "phase4" / "AMENDMENT_001_LOCK.json"
 ORIGINAL_LOCK_SHA = "89321ec7c7c8909814cd8ab121726c0fcdf0ce5ec2bc44f67795759690b66963"
 AMENDMENT_LOCK_SHA = "1a87a71b638ae4311a1fc4d71c07b4a4a7760f0087a8a25f534774c36bccf7d7"
+AMENDED_NOTEBOOK_SOURCE_SHA256 = "00fa6d2c355f3b0ce1d327a81da680215e81d70eb318f3aeaf03620a594fc364"
 
 
 def req(condition, message):
@@ -63,6 +64,8 @@ def main() -> int:
 
     amended = json.loads(AMENDED_NB.read_text(encoding="utf-8"))
     req(amended["nbformat"] == 4, "A001 notebook format drift")
+    sig = source_signature(amended)
+    req(sig == AMENDED_NOTEBOOK_SOURCE_SHA256, "A001 notebook source cells changed after lock")
     nt = notebook_text(amended)
     for token in (
         AMENDMENT_LOCK_SHA,
@@ -126,7 +129,7 @@ def main() -> int:
 
     print("Phase 4 Amendment 001 static validation: PASS")
     print("Notebook state:", notebook_state)
-    print("Notebook source signature:", source_signature(amended))
+    print("Notebook source signature:", sig)
     return 0
 
 
