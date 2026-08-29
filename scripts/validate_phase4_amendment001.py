@@ -33,6 +33,16 @@ def notebook_text(nb: dict) -> str:
     return "\n".join(parts)
 
 
+def notebook_output_text(nb: dict) -> str:
+    parts = []
+    for cell in nb["cells"]:
+        for output in cell.get("outputs", []):
+            parts.extend(output.get("text", []))
+            parts.append(output.get("evalue", ""))
+            parts.extend(output.get("traceback", []))
+    return "\n".join(parts)
+
+
 def main() -> int:
     old = json.loads(FAILED_NB.read_text(encoding="utf-8"))
     req(old["nbformat"] == 4, "failed notebook format drift")
@@ -41,7 +51,7 @@ def main() -> int:
     ot = notebook_text(old)
     req(ORIGINAL_LOCK_SHA in ot, "preserved notebook original lock missing")
     req("CalledProcessError" in ot, "preserved notebook failure evidence missing")
-    req("PHASE 4 LOCKED TRIAL: EXECUTED" not in ot, "preserved failed notebook falsely contains success marker")
+    req("PHASE 4 LOCKED TRIAL: EXECUTED" not in notebook_output_text(old), "preserved failed notebook outputs falsely contain success marker")
 
     amended = json.loads(AMENDED_NB.read_text(encoding="utf-8"))
     req(amended["nbformat"] == 4, "A001 notebook format drift")
