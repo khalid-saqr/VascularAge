@@ -15,7 +15,7 @@ jobs:
           python-version: "3.12"
       - name: Install project
         run: python -m pip install -e . pytest
-      - name: Validate Phase 4 notebook contract
-        run: python scripts/validate_phase4_notebook.py
+      - name: Validate Phase 4 Amendment 001 contract
+        run: python scripts/validate_phase4_amendment001.py
       - name: Run repository tests
         run: pytest -q

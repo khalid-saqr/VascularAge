@@ -1,0 +1,74 @@
+{
+  "amendment_id": "A001",
+  "title": "Site-local waveform sampling semantics",
+  "status": "LOCKED_BEFORE_REEXECUTION_OF_UNSEEN_SECONDARY_ENDPOINTS",
+  "reason": "The original Phase-3 implementation imposed cross-site equality of raw active-sample counts. Canonical PWDB waveforms have valid site-local active supports that can differ across anatomical sites, while pointwise U/A support is aligned locally for Q=U*A.",
+  "original_phase3_lock_sha256": "89321ec7c7c8909814cd8ab121726c0fcdf0ce5ec2bc44f67795759690b66963",
+  "original_execution_commit": "07c10ee428f43a91036af7cb2efcb8d4b05bb734",
+  "failed_execution_notebook_commit": "9a7cd75e227f1589f78031535252db9608fa9e64",
+  "failed_execution_drive_folder": "locked_trial_20260829T131721Z",
+  "already_observed_before_amendment": {
+    "P0_primary_pair_components": true,
+    "P0_primary_subject_results": true,
+    "P0_tolerance_surface": true,
+    "P0_age_pair_matrix": true,
+    "P0_reference_alias_pairs": 53842,
+    "P0_reference_subjects_with_alias": 2764,
+    "P0_reference_alias_fraction": 0.6319158664837677
+  },
+  "not_observed_before_amendment": [
+    "P1_Digital_PPG",
+    "P2_Carotid_pressure",
+    "compensation_vectors",
+    "compensation_motifs",
+    "compensation_permutation_null",
+    "M1_measurement_rescue",
+    "M2_measurement_rescue",
+    "M3_measurement_rescue",
+    "M4_measurement_rescue",
+    "conventional_benchmark",
+    "information_geometry",
+    "float64_numerical_audit",
+    "final_falsification_adjudication"
+  ],
+  "immutable_primary_semantics": {
+    "population": "4374 PWDB states; six ages; 729 states per age",
+    "pair_universe": "7971615 unordered cross-age pairs",
+    "P0_site": "Radial",
+    "P0_quantity": "pressure",
+    "P0_duration": "1000 * active_sample_count(Radial P) / 500",
+    "phase_points": 512,
+    "reference_pressure_tolerance_mmHg": 5.0,
+    "reference_duration_tolerance_ms": 10.0,
+    "pair_distance": "sqrt((pressure_rmse/eP)^2 + (duration_diff/eT)^2)",
+    "canonical_tie_break": "smallest global target row index within min distance + 1e-6"
+  },
+  "amended_source_semantics": {
+    "ordinary_waveform": "validate and phase-resample each waveform on its own active source support",
+    "cross_site_raw_active_count_equality_required": false,
+    "cross_signal_raw_active_count_equality_required": false,
+    "subject_duration_source": "P0 Radial pressure only",
+    "replication_duration_term": "reuse P0 duration difference",
+    "reconstructed_flow": "compute Q=U*A on local source samples before phase resampling",
+    "flow_required_alignment": "U and A local sample support must be identical; no Radial-count equality",
+    "forbidden_repairs": [
+      "truncate secondary waveforms to Radial length",
+      "pad secondary waveforms to Radial length",
+      "force raw secondary samples onto the Radial raw grid",
+      "derive a new duration from each secondary site",
+      "change P0 tolerances or normalization"
+    ]
+  },
+  "new_execution_gates": {
+    "waveform_preflight": "audit all 52 common-site members; cross-site count differences recorded and permitted; local U/A equality required",
+    "P0_numerical_audit_order": "immediately after P0 production outputs",
+    "P0_reproducibility_gate": "before any P1/P2/downstream endpoint, verify the preserved original P0 artifacts and reproduce them exactly/within the locked numerical contract",
+    "failure_evidence": "write structured execution_failure.json with stage and files present on any exception"
+  },
+  "reference_p0_artifact_sha256": {
+    "primary_pair_components.npz": "f4e411dab367bf758466c89d65dcf261b2518af6fbd718b83eae9c2e021184bf",
+    "primary_subject_results.csv": "aa20eb842496e8ad3bb85232bafff18ba4724903f76f1e79e6b1ff3da036829a",
+    "primary_tolerance_surface.csv": "f7677783574b85369652d8f7df36b5dbf225b78c31ba4e256f221a048e1dc805",
+    "primary_age_pair_matrix.csv": "10b5e33458d53f0191da96de616a61346b08542a45d64f4396c62aa12b96af87"
+  }
+}
