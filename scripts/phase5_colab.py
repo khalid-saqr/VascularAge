@@ -31,7 +31,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--execute-s2", action="store_true")
     ap.add_argument("--expected-s2-lock-sha", required=True)
-    ap.add_argument("--drive-root", required=True)
+    ap.add_argument("--phase4-root", required=True)
+    ap.add_argument("--output-parent", required=True)
     ap.add_argument("--repo-root", required=True)
     ap.add_argument("--vq-root", required=True)
     args = ap.parse_args()
@@ -39,11 +40,12 @@ def main() -> int:
     req(args.execute_s2, "Phase-5 S2 execution flag required")
     req(args.expected_s2_lock_sha == S2_LOCK_SHA, "unexpected S2 lock SHA")
 
-    drive = Path(args.drive_root).resolve()
+    phase4 = Path(args.phase4_root).resolve()
+    output_parent = Path(args.output_parent).resolve()
     repo = Path(args.repo_root).resolve()
     vq = Path(args.vq_root).resolve()
-    phase4 = drive / PHASE4_REFERENCE
-    req(phase4.is_dir(), f"Phase-4 evidence folder missing: {phase4}")
+    req(phase4.name == PHASE4_REFERENCE and phase4.is_dir(), f"Phase-4 evidence folder missing/mismatched: {phase4}")
+    output_parent.mkdir(parents=True, exist_ok=True)
 
     manifest = json.loads((repo / "phase5" / "S2_LOCK.json").read_text())
     req(manifest["s2_lock_sha256"] == S2_LOCK_SHA, "Phase-5 lock manifest mismatch")
@@ -98,7 +100,7 @@ def main() -> int:
     va_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=repo, text=True).strip()
 
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    out = drive / f"locked_trial_phase5_s2_{stamp}"
+    out = output_parent / f"locked_trial_phase5_s2_{stamp}"
     out.mkdir(parents=True, exist_ok=False)
     (out / "source_preflight.json").write_text(json.dumps(report, indent=2))
 
