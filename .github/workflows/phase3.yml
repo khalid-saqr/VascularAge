@@ -1,0 +1,33 @@
+name: Phase 3 protocol-lock CI
+on:
+  push:
+    branches: [phase-03-protocol-lock]
+  pull_request:
+    branches: [main]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install lock validation dependencies
+        run: python -m pip install -e ".[test]" "jax[cpu]"
+      - name: Run repository tests
+        run: pytest -q
+      - name: Validate prospective lock package
+        run: python scripts/phase3_validate.py
+      - name: Confirm biological runner remains guarded
+        shell: bash
+        run: |
+          set +e
+          output=$(python scripts/phase4_execute_locked.py \
+            --expected-lock-package-sha 89321ec7c7c8909814cd8ab121726c0fcdf0ce5ec2bc44f67795759690b66963 \
+            --repo-root . \
+            --pwdb-root /tmp/phase3-no-source \
+            --output-root /tmp/phase3-no-output 2>&1)
+          code=$?
+          set -e
+          test "$code" -ne 0
+          echo "$output" | grep -q "biological endpoint execution requires --execute-locked-trial"

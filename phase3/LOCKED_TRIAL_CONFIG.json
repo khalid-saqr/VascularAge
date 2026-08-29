@@ -1,0 +1,321 @@
+{
+  "biological_endpoints_allowed_in_phase3": false,
+  "compensation": {
+    "S4_no_go": "observed top-20 motif concentration <= 95th percentile of null distribution",
+    "motif_top_k": 20,
+    "null": "for each aliased source, retain its canonical target age and draw one target uniformly from 729 states at that age",
+    "null_permutations": 2000,
+    "random_seed": 20260829,
+    "subjects_included": "P0 reference-aliased sources only",
+    "tie_sensitivity": "Phase 5 repeats motif analysis over co-nearest alternatives; canonical Phase-4 result uses locked smallest-index tie break",
+    "vector": "xi_canonical_target - xi_source in locked factor order"
+  },
+  "conventional_benchmark": {
+    "PWV_only_alias_rule": "2*abs(x-y)/(abs(x)+abs(y)) <= 0.05; denominator floor 1e-12",
+    "S5_downgrade": "PWV-only pair-alias Jaccard with P0-reference >=0.90 AND subject-level alias-existence agreement >=0.95",
+    "composite_alias_rule": "PWV relative difference <=0.05 AND AIx absolute difference <=5 percentage points AND brachial SBP absolute difference <=5 mmHg",
+    "source_quantities": [
+      "aortic_pulse_wave_velocity",
+      "aortic_augmentation_index",
+      "brachial_systolic_pressure"
+    ]
+  },
+  "dataset": {
+    "ages": [
+      25,
+      35,
+      45,
+      55,
+      65,
+      75
+    ],
+    "doi": "10.5281/zenodo.3275625",
+    "expected_subjects": 4374,
+    "factor_order": [
+      "HR",
+      "SV",
+      "LVET",
+      "DIA",
+      "PWV",
+      "MAP"
+    ],
+    "family": "PWDB",
+    "levels": [
+      -1,
+      0,
+      1
+    ],
+    "record_id": "3275625",
+    "source_factor_mapping": {
+      "DIA": "DIA",
+      "HR": "HR",
+      "LVET": "LVET",
+      "MAP": "MBP",
+      "PWV": "PWV",
+      "SV": "SV"
+    },
+    "subjects_per_age": 729,
+    "vascuquest_commit": "79891036e61df3096536da8f647f2297b0d88252"
+  },
+  "falsification_operationalization": {
+    "S1": "NO_GO_MAJOR_ALIASING_CLAIM if alias fraction <0.01 at every one of 24 P0 tolerance-grid points",
+    "S2": "NO_GO_ROBUST_ALIASING_CLAIM in Phase 5 if both L1-pressure and Linf-pressure subject-alias sets have Jaccard <0.50 versus P0 reference under same 5 mmHg/10 ms scales",
+    "S3": "NO_GO_PHYSIOLOGICAL_ALIASING_CLAIM if P0 reference alias fraction <0.01 AND is <20% of morphology-only (pressure RMSE<=5 mmHg) alias fraction",
+    "S4": "observed top-20 compensation-motif concentration <=95th percentile of locked permutation null",
+    "S5": "DOWNGRADE_NOVELTY if PWV-only pair-alias Jaccard>=0.90 AND subject-level alias-existence agreement>=0.95",
+    "S6": "NO_GO_MEASUREMENT_RESCUE_CLAIM if every M1-M4 reference rescue fraction <0.10",
+    "S7": "any need for forbidden subject-specific primary normalization invalidates primary claim"
+  },
+  "information_geometry": {
+    "configuration": "xi=(0,0,0,0,0,0) at each age",
+    "interpretation": "local information/pullback metric; Fisher interpretation only under corresponding isotropic Gaussian measurement model",
+    "metric": "F=J.T@J",
+    "outputs": [
+      "eigenvalues",
+      "eigenvectors",
+      "condition_number",
+      "weakest_direction"
+    ],
+    "quantity": "pressure",
+    "scaled_observation": "[P_phase/(sqrt(512)*5 mmHg), T/(10 ms)]",
+    "site": "Radial",
+    "stencil": "central +/-1 standardized factor states; derivative=(z_plus-z_minus)/2"
+  },
+  "measurement_rescue": {
+    "added_area_flow_rule": "symmetric relative RMS <= eRel",
+    "added_pressure_rule": "pressure_rmse_at_site <= eP; duration is not re-counted because P0 already enforces duration",
+    "additional_pressure_reference_tolerance_mmHg": 5.0,
+    "arms": {
+      "M1": {
+        "add": [
+          [
+            "Carotid",
+            "luminal_area"
+          ]
+        ]
+      },
+      "M2": {
+        "add": [
+          [
+            "Carotid",
+            "luminal_area"
+          ],
+          [
+            "Carotid",
+            "pressure"
+          ],
+          [
+            "Carotid",
+            "flow_rate_reconstructed"
+          ]
+        ]
+      },
+      "M3": {
+        "add": [
+          [
+            "Carotid",
+            "luminal_area"
+          ],
+          [
+            "Carotid",
+            "pressure"
+          ],
+          [
+            "Carotid",
+            "flow_rate_reconstructed"
+          ],
+          [
+            "AorticRoot",
+            "pressure"
+          ],
+          [
+            "AorticRoot",
+            "flow_rate_reconstructed"
+          ],
+          [
+            "AorticRoot",
+            "luminal_area"
+          ],
+          [
+            "Radial",
+            "flow_rate_reconstructed"
+          ],
+          [
+            "Radial",
+            "luminal_area"
+          ],
+          [
+            "Femoral",
+            "pressure"
+          ],
+          [
+            "Femoral",
+            "flow_rate_reconstructed"
+          ],
+          [
+            "Femoral",
+            "luminal_area"
+          ]
+        ]
+      },
+      "M4": {
+        "exclude_duplicate": [
+          [
+            "Radial",
+            "pressure"
+          ]
+        ],
+        "includes_all_M3": true,
+        "quantities": [
+          "pressure",
+          "flow_rate_reconstructed",
+          "luminal_area"
+        ],
+        "sites_all_common": [
+          "AorticRoot",
+          "ThorAorta",
+          "AbdAorta",
+          "IliacBif",
+          "Carotid",
+          "SupTemporal",
+          "SupMidCerebral",
+          "Brachial",
+          "Radial",
+          "Digital",
+          "CommonIliac",
+          "Femoral",
+          "AntTibial"
+        ]
+      }
+    },
+    "computational_rule": "evaluate each richer arm only among P0-reference pair aliases surviving the preceding nested arm",
+    "evaluation_order": [
+      "M1",
+      "M2",
+      "M3",
+      "M4"
+    ],
+    "reference_relative_tolerance": 0.05,
+    "relative_rms_formula": "rms(x-y)/sqrt(0.5*(rms(x)^2+rms(y)^2)); denominator floor 1e-12",
+    "relative_tolerance_grid": [
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "semantics": "all rescue arms augment P0 and are strictly nested; a source subject is rescued when it has >=1 P0 reference alias but zero aliases under the richer arm"
+  },
+  "numerics": {
+    "age_pair_block_shape": [
+      729,
+      729
+    ],
+    "index_dtype": "int32",
+    "jax_enable_x64": false,
+    "numerical_audit": "float64 arithmetic recomputation for deterministic 60-subject sample (10/age) plus every source with abs(D_ref-1)<=0.01; disagreement >1e-4 in D_ref or changed alias classification is a STOP until explained",
+    "pair_component_storage_dtype": "float32",
+    "production_dtype": "float32",
+    "reference_cpu_dtype": "float64",
+    "tie_atol": 1e-06
+  },
+  "parent_main_commit": "fabaa7b9fa6564bbca21e020c6522cf2e5b16bab",
+  "phase": 3,
+  "phase4_execution_guard": {
+    "no_parameter_overrides": true,
+    "required_flag": "--execute-locked-trial",
+    "required_lock_manifest": "phase3/LOCK_MANIFEST.json",
+    "required_phase3_commit_relation": "Phase 4 must execute code/config unchanged from merged Phase-3 tree; Phase-4 notebook may only orchestrate execution and persist outputs."
+  },
+  "phase4_outputs": [
+    "execution_provenance.json",
+    "primary_subject_results.csv",
+    "primary_tolerance_surface.csv",
+    "primary_age_pair_matrix.csv",
+    "primary_pair_components.npz",
+    "replication_summary.csv",
+    "compensation_vectors.csv",
+    "compensation_motifs.csv",
+    "compensation_null_summary.json",
+    "measurement_rescue_summary.csv",
+    "conventional_benchmark.json",
+    "information_geometry.json",
+    "numerical_audit.json",
+    "trial_summary.json"
+  ],
+  "primary": {
+    "alias_rule": "distance <= 1",
+    "arm_id": "P0",
+    "canonical_tie_break": "smallest global target row index within min_distance + tie_atol",
+    "duration_tolerance_grid_ms": [
+      2,
+      5,
+      10,
+      20
+    ],
+    "equal_weighting": "each of 4374 factorial states weight 1",
+    "nearest_tie_atol": 1e-06,
+    "pair_distance": "sqrt((pressure_rmse/eP)^2 + (abs_duration_diff/eT)^2)",
+    "pair_enumeration": "all 15 unordered age-pair Cartesian products; 7,971,615 unordered cross-age pairs",
+    "pair_storage": "i,j,pressure_rmse_mmHg,duration_diff_ms; i<j; source row indices 0..4373",
+    "pressure_tolerance_grid_mmHg": [
+      1,
+      2,
+      3,
+      5,
+      8,
+      10
+    ],
+    "quantity": "pressure",
+    "reference": {
+      "duration_ms": 10.0,
+      "pressure_mmHg": 5.0
+    },
+    "site": "Radial"
+  },
+  "project": "The Locked In-Silico Trial Concept",
+  "replication_arms": {
+    "P1": {
+      "duration_tolerance_grid_ms": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "operator": "centered_unit_rms_shape_rmse_plus_duration",
+      "quantity": "photoplethysmogram",
+      "reference_duration_ms": 10.0,
+      "reference_shape_tolerance": 0.2,
+      "shape_tolerance_grid": [
+        0.05,
+        0.1,
+        0.2,
+        0.3,
+        0.5
+      ],
+      "site": "Digital"
+    },
+    "P2": {
+      "operator": "same_as_P0",
+      "quantity": "pressure",
+      "site": "Carotid"
+    }
+  },
+  "schema_version": "3.0",
+  "status": "PROSPECTIVELY_LOCKED_PENDING_PR_MERGE",
+  "waveform_representation": {
+    "active_samples": "values where neither VascuQuest missing_mask nor padding_mask is true",
+    "cycle_duration_ms_formula": "1000 * active_sample_count / sample_rate_hz",
+    "interpolation": "periodic_linear",
+    "phase_points": 512,
+    "primary_forbidden_normalizations": [
+      "mean_subtraction",
+      "zscore",
+      "peak_scaling",
+      "pulse_pressure_scaling",
+      "subject_specific_morphology_normalization"
+    ],
+    "primary_pressure_unit": "mmHg",
+    "sample_rate_hz": 500.0
+  }
+}

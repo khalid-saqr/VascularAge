@@ -1,0 +1,38 @@
+{
+  "git_return_expected": [
+    "execution_provenance.json",
+    "primary_subject_results.csv",
+    "primary_tolerance_surface.csv",
+    "primary_age_pair_matrix.csv",
+    "replication_summary.csv",
+    "compensation_vectors.csv",
+    "compensation_motifs.csv",
+    "compensation_null_summary.json",
+    "measurement_rescue_summary.csv",
+    "conventional_benchmark.json",
+    "information_geometry.json",
+    "numerical_audit.json",
+    "trial_summary.json"
+  ],
+  "large_drive_only": [
+    "primary_pair_components.npz"
+  ],
+  "required_outputs": [
+    "execution_provenance.json",
+    "primary_subject_results.csv",
+    "primary_tolerance_surface.csv",
+    "primary_age_pair_matrix.csv",
+    "primary_pair_components.npz",
+    "replication_summary.csv",
+    "compensation_vectors.csv",
+    "compensation_motifs.csv",
+    "compensation_null_summary.json",
+    "measurement_rescue_summary.csv",
+    "conventional_benchmark.json",
+    "information_geometry.json",
+    "numerical_audit.json",
+    "trial_summary.json"
+  ],
+  "rule": "Raw PWDB source and large pair-component arrays remain on persistent Drive; compact result/provenance files are saved back with the executed Phase-4 notebook/PR.",
+  "schema_version": "3.0"
+}
