@@ -1,0 +1,35 @@
+{
+  "external_qualified_execution": {
+    "biological_endpoint_executed": false,
+    "phase1_contract_sha256": "18cc85b8e192b14acdfff7f08bd684704799e793b34bb558cfede0efbc5f0399",
+    "phase1_qualified_vascularage_commit": "685ef575136ff0628ec2b598e914edce9cdd43e2",
+    "phase1_runtime": "Google Colab T4",
+    "phase1_status": "PASS",
+    "phase1_vascuquest_commit": "79891036e61df3096536da8f647f2297b0d88252"
+  },
+  "lock_package_sha256": "89321ec7c7c8909814cd8ab121726c0fcdf0ce5ec2bc44f67795759690b66963",
+  "lock_semantics": "SHA-256 of canonical JSON basis: parent_main_commit + upstream_git_blobs + locked_files_sha256 + external_qualified_execution. LOCK_MANIFEST.json is excluded from its own digest.",
+  "locked_files_sha256": {
+    "phase3/ANALYSIS_PLAN.md": "9e16319d622411f453697dddc77e6465be9207bfb925bbf0521e3e29cb45b9d2",
+    "phase3/LOCKED_OUTPUT_SCHEMA.json": "af1dd8ee247601d102af34cfbc66cafb6acd9f86a396ccd18ea55c60f38e550f",
+    "phase3/LOCKED_TRIAL_CONFIG.json": "c5f6d7ede3135efa4e548e1de0965999c584c7381fcc2f24d8f18731e3d7dcfe",
+    "phase3/NOVELTY_BOUNDARY.md": "3845c52ff7526e090d6020b0bc87a8f40a23a1bd569af482857846e632187e7f",
+    "scripts/phase4_execute_locked.py": "e024549274258f4bfefa1c0217b157bd4b9d670af9969a8c326bede8672d0884",
+    "src/vascularage/confirmatory.py": "a9e9b7e666236089fbed1ad760d883bf131ab80bd510a1d5f2ed97bddb9c30f1",
+    "src/vascularage/locked_io.py": "d7dc70dfb65c0349e28cbcdb93ed3201bfa6699b6db7d6b17a0c4214b2d8beb0"
+  },
+  "parent_main_commit": "fabaa7b9fa6564bbca21e020c6522cf2e5b16bab",
+  "phase4_authorization": "Only after manual merge of Phase-3 PR. Phase-4 must present this lock_package_sha256 to the guarded runner.",
+  "upstream_git_blobs": {
+    "notebooks/01_engine_qualification.ipynb": "b276d0969afcf562fa3fee6cc78818ad8ba0330a",
+    "phase1/qualification_contract.json": "b2d07a99251037821a38eca12ef319353ffc9bf5",
+    "phase2/NOVELTY_STATEMENT.md": "2aaf891fe500c710f3850a351893c3dd6d463bc5",
+    "phase2/summary.json": "e31d62b7d300ee26e56e35f193927b57aa18d1b7",
+    "protocol/TRIAL_PROTOCOL_v1.0.md": "ef1e13b8995c9397c47b4fd190d7e703c5be0c2e",
+    "protocol/estimands.yaml": "9f45e79c5b596d716de1e2c6b65337836e3cf5f8",
+    "protocol/falsification_rules.yaml": "a44e621ce1001de5f34e6bac59e5d163bf0ca1a7",
+    "protocol/observation_arms.yaml": "646923cdc3f58765422b585efaac06e7a5a36c99",
+    "protocol/uncertainty_model.yaml": "a873cb1e1515efaf6dd97296bb1cedcf39665b93",
+    "src/vascularage/phase1.py": "a297f16d6af33971c56bf8290a39d1e53deb2d81"
+  }
+}
