@@ -69,9 +69,9 @@ The locked float64 audit passed:
 
 ## Interpretation note — not part of the locked adjudication
 
-For a fixed pressure-difference vector, the sample-normalised norms satisfy
+For a fixed pressure-difference vector, the sample-normalised metrics satisfy
 
-`L1 <= L2(RMSE) <= Linf`.
+`mean(|delta P|) <= RMSE(delta P) <= max(|delta P|)`.
 
 Because all three arms use the same duration term and the same 5 mmHg / 10 ms scales, the subject alias sets must therefore be nested:
 
