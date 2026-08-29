@@ -79,7 +79,7 @@ Because all three arms use the same duration term and the same 5 mmHg / 10 ms sc
 
 The observed results obey this exactly: all 2,764 P0-aliased subjects are L1-aliased, while all 1,724 L-infinity-aliased subjects are P0-aliased. L1 adds 110 subjects relative to P0; L-infinity removes 1,040.
 
-A consequence discovered only after Phase 4 revealed `|A_P0| = 2,764` is that the L1 Jaccard could no longer fall below 0.50: even if all 4,374 subjects were L1-aliased, `J(A_L1,A_P0) >= 2764/4374 = 0.6319158665`. Thus, under the prospectively locked two-arm `AND` rule, S2 became mathematically unable to trigger once the P0 alias fraction was observed above 50%.
+A consequence identified during the post-execution audit is that, once Phase 4 had revealed `|A_P0| = 2,764`, the L1 Jaccard could no longer fall below 0.50: even if all 4,374 subjects were L1-aliased, `J(A_L1,A_P0) >= 2764/4374 = 0.6319158665`. Thus, under the prospectively locked two-arm `AND` rule, S2 was mathematically unable to trigger after the observed P0 alias fraction exceeded 50%.
 
 This does **not** change the prospective S2 adjudication: S2 formally passes exactly as locked. It does mean the L1 half of S2 should not be presented as independent post-Phase-4 falsification evidence. The L-infinity result remains informative on its own and also exceeds the prespecified 0.50 agreement threshold (`0.6237337192`). No threshold or endpoint is changed retrospectively.
 
