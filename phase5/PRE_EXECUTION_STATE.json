@@ -1,0 +1,8 @@
+{
+  "phase": 5,
+  "endpoint": "S2",
+  "status": "IMPLEMENTED_NOT_EXECUTED",
+  "s2_lock_sha256": "97d831b3b3770dddcec9101f3095ecd92d190c4c9f4a1c17e67c2a6c3b8dfb05",
+  "biological_endpoint_executed": false,
+  "execution_notebook": "notebooks/05_s2_robustness.ipynb"
+}
