@@ -1,0 +1,80 @@
+{
+  "S2_NO_GO": "Jaccard(A_L1,A_P0) < 0.50 AND Jaccard(A_Linf,A_P0) < 0.50",
+  "amendment001_lock_sha256": "1a87a71b638ae4311a1fc4d71c07b4a4a7760f0087a8a25f534774c36bccf7d7",
+  "endpoint": "S2",
+  "jaccard_threshold": 0.5,
+  "matched_scales": {
+    "duration_ms": 10.0,
+    "pressure_mmHg": 5.0
+  },
+  "metrics": {
+    "L1_pressure": {
+      "definition": "mean(abs(P_i-P_j)) over 512 phase points",
+      "interpretation": "sample-normalised discrete L1 norm / mean absolute pressure error",
+      "raw_unnormalised_sum_forbidden": true,
+      "unit": "mmHg"
+    },
+    "Linf_pressure": {
+      "definition": "max(abs(P_i-P_j)) over 512 phase points",
+      "unit": "mmHg"
+    }
+  },
+  "numerics": {
+    "boundary_audit_abs_distance_to_one": 0.01,
+    "classification_change_allowed": false,
+    "deterministic_control_pair_rows": 600,
+    "max_abs_distance_disagreement": 0.0001,
+    "production_backend": "JAX/XLA non-CPU accelerator",
+    "production_dtype": "float32",
+    "reference_cpu_dtype": "float64"
+  },
+  "observation": {
+    "duration_source": "Radial active source support",
+    "forbidden_normalizations": [
+      "mean_subtraction",
+      "zscore",
+      "peak_scaling",
+      "pulse_pressure_scaling",
+      "subject_specific_morphology_normalization"
+    ],
+    "phase_points": 512,
+    "pressure_unit": "mmHg",
+    "quantity": "pressure",
+    "site": "Radial"
+  },
+  "original_phase3_lock_sha256": "89321ec7c7c8909814cd8ab121726c0fcdf0ce5ec2bc44f67795759690b66963",
+  "outputs": [
+    "phase4_evidence_verification.json",
+    "s2_pair_components.npz",
+    "s2_subject_results.csv",
+    "s2_overlap_summary.json",
+    "s2_numerical_audit.json",
+    "s2_summary.json",
+    "execution_provenance.json"
+  ],
+  "pair_alias_rule": "sqrt((pressure_metric/5)^2 + (duration_diff_ms/10)^2) <= 1",
+  "parent_main_commit": "3bc3bb54f6eb01c5ea34f5aaf828df0a81044572",
+  "phase": 5,
+  "phase4_reference": {
+    "P0_reference_alias_fraction": 0.6319158664837677,
+    "P0_reference_alias_pairs": 53842,
+    "P0_reference_alias_subjects": 2764,
+    "artifact_sha256": {
+      "primary_age_pair_matrix.csv": "10b5e33458d53f0191da96de616a61346b08542a45d64f4396c62aa12b96af87",
+      "primary_pair_components.npz": "f4e411dab367bf758466c89d65dcf261b2518af6fbd718b83eae9c2e021184bf",
+      "primary_subject_results.csv": "aa20eb842496e8ad3bb85232bafff18ba4724903f76f1e79e6b1ff3da036829a",
+      "primary_tolerance_surface.csv": "f7677783574b85369652d8f7df36b5dbf225b78c31ba4e256f221a048e1dc805"
+    },
+    "drive_folder": "locked_trial_amendment001_20260829T153743Z",
+    "status": "EXECUTED_AMENDMENT_001",
+    "subjects": 4374,
+    "unordered_cross_age_pairs": 7971615
+  },
+  "primary_statistics": [
+    "Jaccard(A_L1,A_P0)",
+    "Jaccard(A_Linf,A_P0)"
+  ],
+  "schema_version": "5.0",
+  "status": "PROSPECTIVELY_LOCKED_NOT_EXECUTED",
+  "subject_alias_rule": "subject has >=1 aliased cross-age pair"
+}
