@@ -43,6 +43,14 @@ def notebook_output_text(nb: dict) -> str:
     return "\n".join(parts)
 
 
+def source_signature(nb: dict) -> str:
+    basis = [
+        {"cell_type": cell["cell_type"], "source": cell.get("source", [])}
+        for cell in nb["cells"]
+    ]
+    return hashlib.sha256(json.dumps(basis, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
 def main() -> int:
     old = json.loads(FAILED_NB.read_text(encoding="utf-8"))
     req(old["nbformat"] == 4, "failed notebook format drift")
@@ -55,10 +63,6 @@ def main() -> int:
 
     amended = json.loads(AMENDED_NB.read_text(encoding="utf-8"))
     req(amended["nbformat"] == 4, "A001 notebook format drift")
-    for cell in amended["cells"]:
-        if cell["cell_type"] == "code":
-            req(cell.get("execution_count") is None, "A001 notebook must be unexecuted before external rerun")
-            req(cell.get("outputs") == [], "A001 notebook contains outputs before external rerun")
     nt = notebook_text(amended)
     for token in (
         AMENDMENT_LOCK_SHA,
@@ -68,6 +72,25 @@ def main() -> int:
         "PHASE 4 AMENDMENT 001 TRIAL: EXECUTED",
     ):
         req(token in nt, f"A001 notebook token missing: {token}")
+
+    code = [c for c in amended["cells"] if c["cell_type"] == "code"]
+    executed = any(c.get("execution_count") is not None or c.get("outputs") for c in code)
+    if not executed:
+        for cell in code:
+            req(cell.get("execution_count") is None, "A001 pre-execution notebook execution-count drift")
+            req(cell.get("outputs") == [], "A001 pre-execution notebook contains outputs")
+        notebook_state = "PRE_EXECUTION_LOCKED"
+    else:
+        out_text = notebook_output_text(amended)
+        success = "PHASE 4 AMENDMENT 001 TRIAL: EXECUTED" in out_text
+        failed = (
+            "CalledProcessError" in out_text
+            or "A001 runner failed" in out_text
+            or "execution_failure.json" in out_text
+        )
+        req(success or failed, "A001 post-execution notebook lacks terminal success/failure evidence")
+        req(not (success and failed), "A001 notebook contains conflicting terminal states")
+        notebook_state = "POST_EXECUTION_SUCCESS" if success else "POST_EXECUTION_FAILED"
 
     manifest = json.loads(LOCK.read_text())
     req(manifest["amendment_lock_sha256"] == AMENDMENT_LOCK_SHA, "A001 manifest lock mismatch")
@@ -102,6 +125,8 @@ def main() -> int:
     req("expected_active_counts" not in amended_io, "A001 module must not impose Radial count equality")
 
     print("Phase 4 Amendment 001 static validation: PASS")
+    print("Notebook state:", notebook_state)
+    print("Notebook source signature:", source_signature(amended))
     return 0
 
 
