@@ -1,0 +1,26 @@
+{
+  "canonical_basis": {
+    "amendment001_lock_sha256": "1a87a71b638ae4311a1fc4d71c07b4a4a7760f0087a8a25f534774c36bccf7d7",
+    "endpoint": "COMPENSATION_TIE_SENSITIVITY_CLOSURE",
+    "locked_files_sha256": {
+      "phase5b/TIE_SENSITIVITY_CLOSURE.md": "0ac997525fc35cd79ba9831e8fd0302ae157f70f123abca8a7d0f75cbc2780b4",
+      "phase5b/TIE_SENSITIVITY_SPEC.json": "52f4b247f4b41d0546094f8ec38554056002aa0cf45aad1667c936ff2f7fa28a",
+      "scripts/phase5b_tie_closure.py": "91528579ce4bc58eb8e68999c7eb14e9d52f7942daf6998406dfdf3bc9272db5",
+      "src/vascularage/phase5b_ties.py": "c4908c25f1e7480a387fd1fc96b177c28607cd215f52045cabdfc703692bc0d3"
+    },
+    "original_phase3_lock_sha256": "89321ec7c7c8909814cd8ab121726c0fcdf0ce5ec2bc44f67795759690b66963",
+    "parent_main_commit": "dd64cf00699ade42ba4505ddc6f0ffa20a982894",
+    "phase": "5B",
+    "phase4_reference_artifact_sha256": {
+      "compensation_motifs.csv": "fd52a339065ba394203ca886474b15e12fe70340ba3e451f1ecd253333f1cd79",
+      "compensation_null_summary.json": "891283d13343c7147254758af7cb7280fe4f2243056c5d62cadb5e978c8efa30",
+      "compensation_vectors.csv": "f350008a80b594333dfd6a6391144f8962df71cffd6b4ac283a58f29d23b4472",
+      "primary_pair_components.npz": "f4e411dab367bf758466c89d65dcf261b2518af6fbd718b83eae9c2e021184bf",
+      "primary_subject_results.csv": "aa20eb842496e8ad3bb85232bafff18ba4724903f76f1e79e6b1ff3da036829a"
+    },
+    "phase4_reference_drive_folder": "locked_trial_amendment001_20260829T153743Z",
+    "phase5_s2_lock_sha256": "97d831b3b3770dddcec9101f3095ecd92d190c4c9f4a1c17e67c2a6c3b8dfb05"
+  },
+  "lock_semantics": "SHA-256 of canonical_basis serialized as sorted compact JSON. This manifest is excluded from its own digest.",
+  "tie_sensitivity_lock_sha256": "6b9f11bf0c662c8263e531b0440882881d79b5ab70aaa4aaeffd4e4a69d741c2"
+}
