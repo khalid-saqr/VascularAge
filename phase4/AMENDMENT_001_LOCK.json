@@ -1,0 +1,23 @@
+{
+  "amendment_lock_sha256": "1a87a71b638ae4311a1fc4d71c07b4a4a7760f0087a8a25f534774c36bccf7d7",
+  "canonical_basis": {
+    "amended_files_sha256": {
+      "phase4/AMENDMENT_001.md": "652f19c07ee5c636217ce63c03879741df20ad0904ffd8fbf7b5c8d922830736",
+      "phase4/AMENDMENT_001_PROTOCOL.json": "011dad1107e0a88aff02c0e1aa81c99e1417e43cb80679debcfbab8150f9af38",
+      "scripts/phase4_execute_amendment001.py": "3ffb275725edaf87a8581c3b6471fdd102b16fcb20fbdea65e17abcc9fc66a49",
+      "src/vascularage/amendment001_io.py": "e43e5b66679a4b25e38895f740319b98b2f46c0deb685b5c8b737d4c6929de43"
+    },
+    "amendment_id": "A001",
+    "failed_execution_drive_folder": "locked_trial_20260829T131721Z",
+    "failed_execution_notebook_commit": "9a7cd75e227f1589f78031535252db9608fa9e64",
+    "original_execution_commit": "07c10ee428f43a91036af7cb2efcb8d4b05bb734",
+    "original_phase3_lock_sha256": "89321ec7c7c8909814cd8ab121726c0fcdf0ce5ec2bc44f67795759690b66963",
+    "reference_p0_artifact_sha256": {
+      "primary_age_pair_matrix.csv": "10b5e33458d53f0191da96de616a61346b08542a45d64f4396c62aa12b96af87",
+      "primary_pair_components.npz": "f4e411dab367bf758466c89d65dcf261b2518af6fbd718b83eae9c2e021184bf",
+      "primary_subject_results.csv": "aa20eb842496e8ad3bb85232bafff18ba4724903f76f1e79e6b1ff3da036829a",
+      "primary_tolerance_surface.csv": "f7677783574b85369652d8f7df36b5dbf225b78c31ba4e256f221a048e1dc805"
+    }
+  },
+  "lock_semantics": "SHA-256 of canonical_basis serialized as sorted compact JSON. This manifest is excluded from its own digest."
+}
