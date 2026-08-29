@@ -1,0 +1,20 @@
+{
+  "phase": 5,
+  "endpoint": "S2",
+  "status": "PRE_EXECUTION_SCHEMA",
+  "required_runner_outputs": {
+    "phase4_evidence_verification.json": "cryptographic verification of preserved Phase-4 P0 evidence",
+    "s2_pair_components.npz": "authoritative pair ordering, preserved duration component, L1 and L-infinity pressure discrepancies",
+    "s2_subject_results.csv": "P0/L1/L-infinity subject-level alias membership",
+    "s2_overlap_summary.json": "subject-set cardinalities, intersections, unions and both Jaccards",
+    "s2_numerical_audit.json": "float64 boundary/control audit",
+    "s2_summary.json": "S2 adjudication and primary statistics",
+    "execution_provenance.json": "commit, lock, backend and evidence provenance"
+  },
+  "required_colab_outputs": {
+    "source_preflight.json": "qualified source-artifact verification",
+    "bundle_hashes.json": "SHA-256 inventory of required runner outputs",
+    "external_execution_evidence.json": "external execution wrapper evidence",
+    "phase5_console.log": "captured guarded-runner console output"
+  }
+}
