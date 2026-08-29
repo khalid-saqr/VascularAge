@@ -1,0 +1,16 @@
+name: Phase 2 evidence-map CI
+on:
+  push:
+    branches: [phase-02-evidence-map]
+  pull_request:
+    branches: [main]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate committed Phase 2 evidence package
+        run: python scripts/phase2_validate.py

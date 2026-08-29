@@ -1,0 +1,38 @@
+{
+  "phase": 2,
+  "source_name": "scopus_889_scientific_screening.csv",
+  "source_rows": 889,
+  "source_bytes": 2120392,
+  "source_sha256": "80714d21233d79cfcb02e0012e4bcc2faa31a711eb77610f5983f66adf81f5fc",
+  "canonical_core_fields": [
+    "Authors",
+    "Author full names",
+    "Author(s) ID",
+    "Title",
+    "Year",
+    "Source title",
+    "Volume",
+    "Issue",
+    "Art. No.",
+    "Page start",
+    "Page end",
+    "DOI",
+    "Link",
+    "Abstract",
+    "Open Access",
+    "EID"
+  ],
+  "canonical_core_sha256": "6a032e13b10ee799a7773f59bdf5661310d0243472890faf97615cfde3933a31",
+  "canonicalization": "Select canonical_core_fields in listed order; replace missing values with empty string; UTF-8 CSV; comma delimiter; LF line endings; no index.",
+  "prior_derived_columns_ignored": [
+    "Semantic_cluster",
+    "Cluster_domain",
+    "Project_similarity",
+    "Threat_class",
+    "Screening_rationale"
+  ],
+  "redistribution_policy": "Raw abstracts/export are not committed to GitHub. Only derived bibliographic classifications and hashes are committed.",
+  "original_scopus_query_status": "not_preserved",
+  "search_reproducibility_note": "The frozen corpus is byte-identifiable and corpus-reproducible, but the exact original Scopus query string that produced the 889-record export is unavailable and is not reconstructed as if exact.",
+  "known_original_search_logic": "Asymmetric master search combining method-first cardiovascular/arterial temporal-system concepts (including Mori-Zwanzig/generalized Langevin/memory-kernel/Volterra/projection/system-identification terminology) with an ageing-first arterial-ageing temporal/dynamical branch; no year or subject-area limit was reported."
+}
